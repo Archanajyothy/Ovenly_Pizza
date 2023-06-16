@@ -26,17 +26,17 @@
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                       <p class="text-muted mb-0"><%= order.products.item[i].productId.name %></p>
                     </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <!--<div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                       <p class="text-muted mb-0 small">Platform:<%=order.products.item[i].productId.platform %></p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                       <p class="text-muted mb-0 small">Genre:<%= order.products.item[i].productId.genre %></p>
-                    </div>
+                    </div>-->
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                       <p class="text-muted mb-0 small">Qty:<%= order.products.item[i].qty %></p>
                     </div>
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">$<%= order.products.item[i].productId.price %></p>
+                      <p class="text-muted mb-0 small">₹ <%= order.products.item[i].productId.price %></p>
                     </div>
                     <% if(order.status == 'Delivered'){ %>
                       <% if(order.productReturned[i] == 0){ %>
@@ -66,7 +66,7 @@
   
               <div class="d-flex justify-content-between pt-2">
                 <p class="fw-bold mb-0">Order Details</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> $<%=order.products.totalPrice %></p>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> ₹ <%=order.products.totalPrice %></p>
               </div>
   
               <div class="d-flex justify-content-between pt-2">
@@ -87,7 +87,7 @@
             <div class="card-footer border-0 px-4 py-5"
               style="background-color: #dd163b; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
               <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-                paid: <span class="h2 mb-0 ms-2">$<%=order.products.totalPrice %></span></h5>
+                paid: <span class="h2 mb-0 ms-2">₹ <%=order.products.totalPrice %></span></h5>
             </div>
           </div>
         </div>

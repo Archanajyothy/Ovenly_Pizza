@@ -16,7 +16,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                       
                                       <div class="form-outline flex-fill mb-0">
-                                        <label class="form-label" for="form3Example1c">Game Name</label>
+                                        <label class="form-label" for="form3Example1c">Pizza Name</label>
                                         <input type="text" id="form3Example1c" class="form-control" name="gName" value="<%= product.name %>" required/>
                                         
                                       </div>
@@ -25,7 +25,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                       
                                       <div class="form-outline flex-fill mb-0">
-                                        <label class="form-label" for="form3Example3c">Game Platform</label>
+                                        <label class="form-label" for="form3Example3c">Ingredients</label>
                                         <input type="text" id="form3Example3c" class="form-control" name="gPlatform" value="<%= product.platform %>" required/>
                                         
                                       </div>
@@ -34,7 +34,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                        
                                         <div class="form-outline flex-fill mb-0">
-                                            <label class="form-label" for="form3Example1c">Game Price</label>
+                                            <label class="form-label" for="form3Example1c">Pizza Price</label>
                                           <input type="number" id="form3Example1c" class="form-control" name="gPrice" value="<%= product.price %>" required/>
                                           
                                         </div>
@@ -43,7 +43,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                        
                                       <div class="form-outline flex-fill mb-0">
-                                          <label class="form-label" for="form3Example1c">Game Stock</label>
+                                          <label class="form-label" for="form3Example1c">Pizza Stock</label>
                                           <input type="number" id="form3Example1c" class="form-control" name="stock" value="<%= product.stock %>" required/>                    
                                       </div>
                                     </div>
@@ -51,7 +51,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                      
                                       <div class="form-outline flex-fill mb-0">
-                                        <label class="form-label" for="form3Example4c">Game Description</label>
+                                        <label class="form-label" for="form3Example4c">Pizza Description</label>
                                         <input type="text" id="form3Example4c" class="form-control" name="gDescription" value="<%= product.description %>" required/>
                                         
                                       </div>
@@ -60,7 +60,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                        
                                       <div class="form-outline flex-fill mb-0">
-                                          <label class="form-label" for="form3Example1c">Game Rating</label>
+                                          <label class="form-label" for="form3Example1c">Pizza Rating</label>
                                         <input type="number" id="form3Example1c" class="form-control" name="gRating" value="<%= product.rating %>"  max="5" required/>
                                         
                                       </div>
@@ -69,16 +69,13 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                        
                                       <div class="form-outline flex-fill mb-3">
-                                        <label for="">Game Genre</label>
+                                        <label for="">Pizza Category</label>
                                       <select name="genre" class="form-control">
-                                        <option value="" disabled selected>Select a Genre</option>
-                                        <option value="Shooters">Shooters</option>
-                                        <option value="Role-Playing">Role-Playing</option>
-                                        <option value="MOBA">MOBA</option>
-                                        <option value="Sports">Sports</option>
-                                        <option value="Survival">Survival</option>
-                                        <option value="Horror">Horror</option>
-                                        <option value="Sandbox">Sandbox</option>
+                                        <option value="" disabled selected>Select a Category</option>
+                                        <option value="Vegetarian">Vegetarian</option>
+                                        <option value="Non-Vegetarian">Non Vegetarian</option>
+                                        <option value="Vegan">Vegan</option>
+
                                       </select>
                                       </div>
                                     </div>
@@ -86,7 +83,7 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                      
                                         <div class="form-outline flex-fill mb-0">
-                                          <label class="form-label" for="form3Example4c">Game Image</label>
+                                          <label class="form-label" for="form3Example4c">Pizza Image</label>
                                           <input type="file" id="form3Example4c" class="form-control" name="gImage" required/>
                                           
                                         </div>

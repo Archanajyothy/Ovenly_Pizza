@@ -646,9 +646,9 @@ const loadSuccess = async(req,res)=>{
             // orderData = orderProductStatus
             // await orderData.save()
             
-            await Orders.updateOne({userId:req.session.userId,_id:req.session.currentOrder},{$set:{'status':'Build'}})
+            await Orders.updateOne({userId:req.session.userId,_id:req.session.currentOrder},{$set:{'status':'Order Placed'}})
             await User.updateOne({_id:req.session.userId},{$set:{'cart.item':[],'cart.totalPrice':'0'}},{multi:true})
-            console.log("Order Built and Cart is Empty.");
+            console.log("Order Placed and Cart is Empty.");
         }
         req.session.couponTotal = 0 
         res.render('orderSuccess')
