@@ -7,7 +7,7 @@
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "bibin",
+  "author": "Archana",
   "license": "ISC",
   "dependencies": {
     "alert": "^5.1.2",

@@ -7,8 +7,6 @@ const Category = require('../models/categoryModel')
 
 
 const bcrypt = require('bcrypt')
-const Razorpay = require('razorpay')
-const paypal = require('paypal-rest-sdk')
 const  mongoose = require('mongoose')
 const fast2sms = require('fast-two-sms')
 
@@ -187,47 +185,6 @@ const loadCatalog =async(req,res)=>{
         next:new Number(page)+1
     })
 }
-
-// const selectCategory =async(req,res)=>{
-
-//     let category = ''
-//     if (req.query.id) {
-//         category = req.query.id
-//     }
-//     console.log(req.query.id);
-
-//     let page = 1
-//     if (req.query.page) {
-//         page = req.query.page
-//     }
-//     const limit = 6
-
-//     const productData = await Product.find({
-//         $or:[
-//             {genre:{ $regex:'.*'+category+'.*',$options:'i' }}
-//         ]
-//     })
-//     .limit(limit * 1)
-//     .skip((page - 1) * limit)
-//     .exec()
-
-//     const count = await Product.find({
-//         $or:[
-//             {name:{ $regex:'.*'+category+'.*',$options:'i' }}
-//         ]
-//     }).countDocuments()
-
-//     res.render('store-catalog',{
-//         isLoggedin,
-//         products:productData,
-//         id:req.session.userId,
-//         totalPages:Math.ceil(count/limit),
-//         currentPage:new Number(page),
-//         previous:new Number(page)-1,
-//         next:new Number(page)+1
-//     })
-// }
-
 
 const loadSignup = (req,res)=>{
     res.render('../signup')
@@ -605,10 +562,6 @@ const storeOrder = async(req,res)=>{
             
                 if(req.body.payment == 'Cash-on-Dilevery'){
                     res.redirect('/order-success')
-                }else if(req.body.payment == 'RazorPay'){
-                    res.render('razorpay',{userId:req.session.userId,total:completeUser.cart.totalPrice})
-                }else if(req.body.payment == 'PayPal'){
-                    res.render('paypal',{userId:req.session.userId,total:completeUser.cart.totalPrice})
                 }else{
                     res.redirect('/catalog')
                 }
@@ -657,29 +610,7 @@ const loadSuccess = async(req,res)=>{
     }
 }
 
-const razorpayCheckout = async(req,res)=>{
-    // req.session = req.session
-    const userData =await User.findById({ _id:req.session.userId })
-    const completeUser = await userData.populate('cart.item.productId')
-    var instance = new Razorpay({ key_id: 'rzp_test_0dGOmkN53nGuBg', key_secret: 'mEkJrYGMckakFAOXVahtu30g' })
-    console.log(req.body);
-    console.log(completeUser.cart.totalPrice);
-                let order = await instance.orders.create({
-                  amount: completeUser.cart.totalPrice*100,
-                  currency: "INR",
-                  receipt: "receipt#1",
-                })
-                res.status(201).json({
-                    success: true,
-                    order
-                })
-}
 
-const paypalCheckout = async(req,res)=>{
-    // req.session = req.session
-    // const userData =await User.findById({ _id:req.session.userId })
-    // const completeUser = await userData.populate('cart.item.productId')
-}
 
 const addCoupon = async(req,res)=>{
     try {
@@ -745,8 +676,6 @@ module.exports = {
     editQty,
     loadCheckout,
     storeOrder,
-    razorpayCheckout,
-    paypalCheckout,
     loadSuccess,
     addCoupon,
     loadWishlist,
