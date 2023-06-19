@@ -32,9 +32,10 @@ let Storage = multer.diskStorage({
         cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
     }
 })
-let upload = multer({
+const maxCount = 5
+let upload = multer({ 
     storage:Storage
-}).single('gImage')
+}).array('gImage',maxCount)
 
 
 const loadAdminHome = async(req,res)=>{
@@ -154,6 +155,7 @@ const addProductLoad = async(req,res)=>{
 }
 const updateAddProduct = async(req,res)=>{
     try {
+        const images = req.files;
         const categoryData = await Category.find()
         const spassword = await securePassword(req.body.password)
         const product =Product({
@@ -163,7 +165,7 @@ const updateAddProduct = async(req,res)=>{
             description:req.body.gDescription,
             rating:req.body.gRating,
             stock:req.body.stock,
-            image:req.file.filename
+            image:images.map((x)=>x.filename)
         })
         console.log(req.body.genre);
         product.genre = req.body.genre

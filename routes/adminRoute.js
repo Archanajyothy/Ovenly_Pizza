@@ -1,5 +1,10 @@
+const multer = require('multer');
 const express = require('express')
 const adminRoute = express()
+
+const maxCount = 5
+const storage = multer.memoryStorage();
+const upload = require('../controller/adminController');
 
 const Product = require('../models/productModel')
 const User = require('../models/userModel')
@@ -41,7 +46,6 @@ adminRoute.get('/adminOrder',adminMiddleware.isLogin,adminController.viewOrder)
 
 adminRoute.get('/login',adminMiddleware.isLogout,adminController.loadLogin)
 adminRoute.post('/login',adminController.verifyLogin)
-
 
 adminRoute.get('/add-product',adminMiddleware.isLogin,adminController.addProductLoad)
 adminRoute.post('/add-product',adminController.upload,adminController.updateAddProduct)
