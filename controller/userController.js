@@ -279,10 +279,14 @@ const viewProductPage = async(req,res)=>{
     try {
         
         const id = req.query.id
+        var image = req.query.image
         const products = await Product.find()
         const productData =await Product.findById({ _id:id })
+        if(typeof image === "undefined"){
+            image = productData.image[0]
+        }
         if(productData){
-            res.render('viewProductPage',{isLoggedin,product:productData,products:products,userSession:req.session.userId})
+            res.render('viewProductPage',{isLoggedin,product:productData,products:products,image:image,userSession:req.session.userId})
         }
         else{
             res.redirect('/catalog')
@@ -609,8 +613,6 @@ const loadSuccess = async(req,res)=>{
         console.log(error.message);
     }
 }
-
-
 
 const addCoupon = async(req,res)=>{
     try {

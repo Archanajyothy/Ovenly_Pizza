@@ -115,11 +115,11 @@
                                                     <td>
                                                         <% if(users[i-1].isVerified) { %>
                                                             <label class="btn-success">
-                                                                <i class="m-r-10 mdi mdi-account">UnBlocked</i></label>
+                                                                <i class="m-r-10 mdi mdi-account">Active</i></label>
                                                             <% } else { %>
                                                                 <label class="btn-danger">
                                                                     <i
-                                                                        class="m-r-10 mdi mdi-account-off">Blocked</i></label>
+                                                                        class="m-r-10 mdi mdi-account-off">Inactive</i></label>
                                                                 <% } %>
                                                                     </label>
                                                     </td>
@@ -131,7 +131,7 @@
                                                             <a class="btn btn-danger text-white"
                                                                 href="/admin/block-user?id=<%= users[i-1]._id %> ">Block</a>
                                                             <% } else { %>
-                                                                <a class="btn btn-info"
+                                                                <a class="btn btn-success"
                                                                     href="/admin/block-user?id=<%= users[i-1]._id %> ">Unblock</a>
                                                                 <% } %>
                                                     </td>

@@ -49,9 +49,9 @@
                         <!-- START: Product Photos -->
                         <div class="nk-popup-gallery">
                             <div class="" style="z-index: 3;" id="img-container">
-                                <a href="./assets/uploads/<%= product.image[0] %>" class="nk-gallery-item" data-size="1200x554">
+                                <a href="./assets/uploads/<%= image %>" class="nk-gallery-item" data-size="1200x554">
                                     <!-- <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div> -->
-                                    <img src="./assets/uploads/<%= product.image[0] %>" alt="lol">
+                                    <img src="./assets/uploads/<%= image %>" alt="lol">
                                 </a>
                             </div>
                             <script>
@@ -64,34 +64,6 @@
                                 }
                                 new ImageZoom(document.getElementById("img-container"), options)
                             </script>
-
-                            <!-- <div class="nk-gap-1"></div>
-                            <div class="row vertical-gap sm-gap">
-                                <div class="col-6 col-md-4">
-                                    <div class="nk-gallery-item-box">
-                                        <a href="./assets/uploads/<%= product.image %>" class="nk-gallery-item" data-size="622x942">
-                                            <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="./assets/uploads/<%= product.image %>" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4">
-                                    <div class="nk-gallery-item-box">
-                                        <a href="./assets/uploads/<%= product.image %>" class="nk-gallery-item" data-size="1920x907">
-                                            <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="./assets/uploads/<%= product.image %>" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4">
-                                    <div class="nk-gallery-item-box">
-                                        <a href="./assets/uploads/<%= product.image %>" class="nk-gallery-item" data-size="1500x750">
-                                            <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
-                                            <img src="./assets/uploads/<%= product.image %>" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                         <!-- END: Product Photos -->
                     </div>
@@ -136,7 +108,45 @@
                          END: Meta -->
                     </div>
                 </div>
+                <!-- start carousel -->
+                <div class="nk-carousel nk-carousel-x4" data-autoplay="5000" data-dots="false"
+                data-cell-align="left" data-arrows="true">
+                <div class="nk-carousel-inner">
 
+                    <% for(let Image of product.image){%>
+                    <div>
+                        <div class="pl-5 pr-5">
+                            <div class="nk-product-cat-3">
+                                <a class="nk-product-image" href="/view-product?id=<%= product._id %>&image=<%= Image%>">
+                                    <img src="./assets/uploads/<%= Image %>"
+                                        alt="lol">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <!-- <div class="nk-carousel nk-carousel-x4" data-autoplay="5000" data-dots="false"
+            data-cell-align="left" data-arrows="true">
+            <div class="nk-carousel-inner">
+
+                <% for(let key of products){%>
+                    <% if(key.price >200){ %>
+                <div>
+                    <div class="pl-5 pr-5">
+                        <div class="nk-product-cat-3">
+                            <a class="nk-product-image" href="/view-product?id=<%= key._id %>">
+                                <img src="./assets/uploads/<%= key.image[0] %>"
+                                    alt="lol">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <% }} %>
+            </div>
+        </div> -->
+            <!-- end carousel -->
                 <!-- START: Share -->
                 <div class="nk-gap-2"></div>
                 <div class="nk-post-share">
