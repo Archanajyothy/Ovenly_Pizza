@@ -7,6 +7,8 @@ const Category = require('../models/categoryModel')
 
 
 const bcrypt = require('bcrypt')
+const Razorpay = require('razorpay')
+const paypal = require('paypal-rest-sdk')
 const  mongoose = require('mongoose')
 const fast2sms = require('fast-two-sms')
 
@@ -566,6 +568,10 @@ const storeOrder = async(req,res)=>{
             
                 if(req.body.payment == 'Cash-on-Dilevery'){
                     res.redirect('/order-success')
+                }else if(req.body.payment == 'RazorPay'){
+                    res.render('razorpay',{userId:req.session.userId,total:completeUser.cart.totalPrice})
+                }else if(req.body.payment == 'PayPal'){
+                    res.render('paypal',{userId:req.session.userId,total:completeUser.cart.totalPrice})
                 }else{
                     res.redirect('/catalog')
                 }
@@ -613,6 +619,31 @@ const loadSuccess = async(req,res)=>{
         console.log(error.message);
     }
 }
+
+const razorpayCheckout = async(req,res)=>{
+    // req.session = req.session
+    const userData =await User.findById({ _id:req.session.userId })
+    const completeUser = await userData.populate('cart.item.productId')
+    var instance = new Razorpay({ key_id: 'rzp_test_0dGOmkN53nGuBg', key_secret: 'mEkJrYGMckakFAOXVahtu30g' })
+    console.log(req.body);
+    console.log(completeUser.cart.totalPrice);
+                let order = await instance.orders.create({
+                  amount: completeUser.cart.totalPrice*100,
+                  currency: "INR",
+                  receipt: "receipt#1",
+                })
+                res.status(201).json({
+                    success: true,
+                    order
+                })
+}
+
+const paypalCheckout = async(req,res)=>{
+    // req.session = req.session
+    // const userData =await User.findById({ _id:req.session.userId })
+    // const completeUser = await userData.populate('cart.item.productId')
+}
+
 
 const addCoupon = async(req,res)=>{
     try {
@@ -678,6 +709,8 @@ module.exports = {
     editQty,
     loadCheckout,
     storeOrder,
+    razorpayCheckout,
+    paypalCheckout,
     loadSuccess,
     addCoupon,
     loadWishlist,

@@ -39,6 +39,7 @@ const securePassword = async(password)=>{
 //   });
 
 
+
 userRoute.get('/register',userMiddleware.isLogout, userController.loadSignup)
 userRoute.post('/register', userController.storeSignup)
 
