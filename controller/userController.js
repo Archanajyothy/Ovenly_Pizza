@@ -566,12 +566,12 @@ const storeOrder = async(req,res)=>{
             
             const offerUpdate =await Offer.updateOne({name:req.session.offer.name},{$push:{usedBy:req.session.userId}})
             
-                if(req.body.payment == 'Cash-on-Dilevery'){
+                if(req.body.payment == 'Cash-on-Delivery'){
                     res.redirect('/order-success')
                 }else if(req.body.payment == 'RazorPay'){
                     res.render('razorpay',{userId:req.session.userId,total:completeUser.cart.totalPrice})
                 }else if(req.body.payment == 'PayPal'){
-                    res.render('paypal',{userId:req.session.userId,total:completeUser.cart.totalPrice})
+                    res.render('paypal',{userId:req.session.userId,total:Math.round(completeUser.cart.totalPrice/81.76)})
                 }else{
                     res.redirect('/catalog')
                 }

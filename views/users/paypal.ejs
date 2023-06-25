@@ -14,7 +14,7 @@
                                     <!-- <i class="fas fa-envelope fa-lg fa-fw text-center"></i> -->
                                     <div class="form-outline flex-fill mb-0">
                                         <label class="text-center form-label" for="form3Example3c">Click Below to
-                                            Pay <br>Total:<%= total %></label>
+                                            Pay <br>Total : $<%= total %></label>
                                         <input type="hidden" id="total" value="<%= total %>">
                                     </div>
                                 </div>
@@ -27,7 +27,7 @@
                                             <div id="paypal-button-container"></div>
                                             <!-- Sample PayPal credentials (client-id) are included -->
                                             <script
-                                                src="https://www.paypal.com/sdk/js?client-id=AaSaTLn6P8dEP56FaRh-FMMZj2c2NrWwc9aqu2ravuX-Bad5uGkkJ90LAFoWTzoV2hEyaKkyWITW2RVc&currency=USD&intent=capture&enable-funding=venmo"
+                                                src="https://www.paypal.com/sdk/js?client-id=AZaLOY_U4gBBsRUIj2UjY-phaARVQyP9psEO5LWjfqdcskfrGwxutRNXT2HFhrfMtyl85iwrh98rgtM3&currency=USD&intent=capture&enable-funding=venmo"
                                                 data-sdk-integration-source="integrationbuilder"></script>
                                             <script>
                                                 const total = document.getElementById('total')
@@ -64,7 +64,7 @@
                                                         const captureOrderHandler = (details) => {
                                                             const payerName = details.payer.name.given_name;
                                                             console.log('Transaction completed');
-                                                            window.location.replace("http://elitewaves.shop/order-success")
+                                                            window.location.replace("http://localhost:3000/order-success")
                                                         };
 
                                                         return actions.order.capture().then(captureOrderHandler);

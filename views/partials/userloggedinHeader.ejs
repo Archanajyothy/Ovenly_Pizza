@@ -73,7 +73,22 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>   
-
+    <script>
+        function updateButtonText(event) {
+          var button = document.getElementById("dropdownMenuButton");
+          button.innerHTML = event.target.innerHTML;
+          localStorage.setItem("selectedItem", event.target.innerHTML);
+        }
+        
+        window.onload = function() {
+          var selectedItem = localStorage.getItem("selectedItem");
+          if (selectedItem) {
+            var button = document.getElementById("dropdownMenuButton");
+            button.innerHTML = selectedItem;
+            localStorage.removeItem("selectedItem");
+          }
+        };
+    </script>
 </head>
 
 <body>

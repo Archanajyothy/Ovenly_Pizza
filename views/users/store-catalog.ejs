@@ -136,7 +136,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <% for(let key of category){ %>
-                  <a class="dropdown-item" href="/catalog?id=<%=key.name%>"><%= key.name %></a>
+                  <a class="dropdown-item" href="/catalog?id=<%=key.name%>" onclick="updateButtonText(event)" return false;><%= key.name %></a>
                   <% } %>
                 </div>
               </div>
@@ -161,7 +161,7 @@
     if(products.length > 0){
         for(let key of products){
             %>
-            <% if(key.isAvailable ==1){ %>
+            <% if(key.isAvailable == 1){ %>
             <table >
             
             <div class="col-lg-6">

@@ -99,7 +99,7 @@
                                                     </td>
                                                     <td>
                                                         <% if(products[i-1].image) { %>
-                                                            <img src="/assets/uploads/<%= products[i-1].image %>"
+                                                            <img src="/assets/uploads/<%= products[i-1].image[0] %>"
                                                                 width="100vw" height="100vh">
                                                             <% }else{ %>
                                                                 Image Not Found

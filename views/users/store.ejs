@@ -18,9 +18,9 @@
                             <div class="nk-image-slider" style="height: 65vh;" data-autoplay="4000">
                                 <% for(let i=0;i<=4;i++){ %>
                                     <div class="nk-image-slider-item">
-                                        <img src="./assets/uploads/<%= products[i].image %>" alt="lol"
+                                        <img src="./assets/uploads/<%= products[i].image[0] %>" alt="lol"
                                             class="nk-image-slider-img"
-                                            data-thumb="./assets/uploads/<%= products[i].image %>">
+                                            data-thumb="./assets/uploads/<%= products[i].image[0] %>">
 
                                         <div class="nk-image-slider-content">
 

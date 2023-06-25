@@ -32,7 +32,7 @@ let Storage = multer.diskStorage({
         cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
     }
 })
-const maxCount = 5
+const maxCount = 6
 let upload = multer({ 
     storage:Storage
 }).array('gImage',maxCount)
@@ -245,7 +245,7 @@ const editProduct = async(req,res)=>{
 
 const updateEditProduct = async(req,res)=>{
     try {
-        
+        const images = req.files;
         const productData = await Product.findByIdAndUpdate({ _id:req.body.id },{
              $set:{
                 name:req.body.gName,
@@ -254,7 +254,8 @@ const updateEditProduct = async(req,res)=>{
                 description:req.body.gDescription,
                 stock:req.body.stock,
                 rating:req.body.gRating,
-                image:req.file.filename
+                image:images.map((x)=>x.filename)
+                // image:req.file.filename
             } 
         })
         console.log(req.body.genre);

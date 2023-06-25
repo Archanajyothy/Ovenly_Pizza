@@ -42,6 +42,9 @@
             <table class="table nk-store-cart-products">
                 <tbody>
                     <% if(id) { %>
+                    <% if((wishlistProducts.item).length == 0) { %>
+                        <h4>No items found in wishlist. <br> Add item to Wishlist !!! </h4>
+                    <% } %>
                     <% for(let key of wishlistProducts.item){ %>
                         <tr>
 
