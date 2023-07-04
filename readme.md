@@ -1,5 +1,3 @@
-Certainly! Here's an enhanced and catchy introduction for your Ovenly Pizza delivery website:
-
 # Ovenly Pizza
 
 ## Introduction
