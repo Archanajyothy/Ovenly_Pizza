@@ -3,7 +3,7 @@
 ## Introduction
 Welcome to Ovenly Pizza, your ultimate destination for mouthwatering pizzas delivered right to your doorstep! We are a cutting-edge web-based pizza delivery platform designed to redefine your pizza ordering experience. With a seamless blend of technology and culinary excellence, we bring you a diverse menu, customizable options, and secure online payments, all wrapped up in a user-friendly interface.
 
-At Ovenly Pizza, we understand that ordering pizza should be a delightful and hassle-free process. That's why we've crafted our website using the latest technologies such as JavaScript, EJS, Node.js, Express.js, Bootstrap 4, Passport.js, PayPal API, and more, ensuring a seamless and intuitive user experience.
+At Ovenly Pizza, we understand that ordering pizza should be a delightful and hassle-free process. That's why we've crafted our website using the latest technologies such as JavaScript, EJS, Node.js, Express.js, MongoDb, Bootstrap 4, Passport.js, PayPal API, and more, ensuring a seamless and intuitive user experience.
 
 ## Features
 - User Registration and Authentication: Create an account and enjoy personalized features, such as saving your favorite orders and tracking their status.
