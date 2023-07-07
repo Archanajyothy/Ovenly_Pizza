@@ -72,7 +72,11 @@ adminRoute.post('/adminOffer',adminMiddleware.isLogin,adminController.adminStore
 
 
 adminRoute.get('/adminlogout',adminMiddleware.isLogin,adminController.adminLogout)
+adminRoute.get("/sales-report",adminMiddleware.isLogin,adminController.getSalesReport)
 
+adminRoute.use((req, res, next) => {
+    res.render('admin404')
+  })
 
 adminRoute.get('*',(req,res)=>{
     res.redirect('/admin')

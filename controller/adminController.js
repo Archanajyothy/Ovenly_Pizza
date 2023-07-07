@@ -349,9 +349,69 @@ const adminLogout = async(req,res)=>{
     res.redirect('/admin')
 }
 
+// Sales report............................
+const getSalesReport = async (req, res) => {
+    try{
+        
+        var timeUnit = req.query.id;
+        if (typeof timeUnit == "undefined") {
+            timeUnit ="daily"
+        }
+        let timeInterval;
+        let flag;
+        let head;
+        
+        switch (timeUnit) {
+          case 'daily':
+            timeInterval = { day: { $dayOfMonth: "$createdAt" }, 
+            month: { $month: "$createdAt" },
+            year: { $year: "$createdAt" }}
+            flag = "dly"
+            head = ["Day","Month","Year","Total Orders","Total Sales"]
+            break;
+          case 'monthly':
+            timeInterval = { month: { $month: "$createdAt" },year: { $year: "$createdAt" } };
+            flag = "mon"
+            head = ["Month","Year","Total Orders","Total Sales"]
+            break;
+          case 'weekly':
+            timeInterval = { week: { $week: "$createdAt" },year: { $year: "$createdAt" } };
+            flag = "wek"
+            head = ["Week","Year","Total Orders","Total Sales"]
+            break;
+          case 'yearly':
+            timeInterval = { $year: "$createdAt" };
+            flag = "yrl"
+            head = ["Year","Total Orders","Total Sales"]
+            break;
+          default:
+            return res.status(400).send({ error: 'Invalid time unit' });
+        }
+      
+        const report = await Order.aggregate([
+          {
+            $group: {
+              _id: timeInterval,
+              totalOrders: { $sum: 1 },
+              totalSales: { $sum: "$products.totalPrice" }
+            }
+          }
+        ]);
+
+        console.log(Object.values(report))
+
+        res.render('sales-report',{report:report,flag:flag,head:head});
+    } catch (error) {
+        console.log(error.message);
+    }
+
+};
+
+
 
 
 module.exports = {
+    getSalesReport,
     loadAdminHome,
     loadLogin,
     verifyLogin,
@@ -374,5 +434,5 @@ module.exports = {
     adminConfirmorder,
     adminDeliveredorder,
     adminLoadOffer,
-    adminStoreOffer
+    adminStoreOffer 
 }

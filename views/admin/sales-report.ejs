@@ -4,147 +4,87 @@
         <div class="page-wrapper">
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row align-items-center">
-                    <div class="col-5">
-                        <h4 class="page-title">Dashboard</h4>
-                        <div class="d-flex align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="col-7">
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Sales chart -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div style="width: 500px;">
-                            <input type="hidden" id="category" value="<%= category %>">
-                            <input type="hidden" id="count" value="<%= count %>">
-                            <h3 class="text-danger text-center">Popular Categories:</h3>
-                            <canvas id="myChart"></canvas>
-                        </div>
-                        <script type="text/javascript" >
-                            const count = document.getElementById('count')
-                            // console.log('type:',typeof(count.value),' value:',count.value);
-                            const countArray = count.value.split(',')
-                            // console.log('type:',typeof(countArray),'values,',countArray);
 
-                            const category = document.getElementById('category')
-                            // console.log(' value:',category.value);
-                            const categoryArray = category.value.split(',')
-                            // console.log('values,',categoryArray);
-
-                            const ctx = document.getElementById('myChart');
-                            
-                            new Chart(ctx, {
-                              type: 'pie',
-                              data: {
-                                labels: categoryArray,
-                                datasets: [{
-                                  label: 'Orders:',
-                                  data: countArray,
-                                  borderWidth: 1
-                                }]
-                              },
-                            //   options: {
-                            //     scales: {
-                            //       y: {
-                            //         beginAtZero: true
-                            //       }
-                            //     }
-                            //   }
-                            });
-                          </script>                          
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body row col-12">
-                            <div class="row col-4">
-                              <div class="col-4">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Total Sales</h5>
-                                <span class="h2 font-weight-bold mb-0"><%= totalSales %></span>
-                              </div>
-                            </div>
-                            
-                            <div class="row col-4">
-                                <div class="">
-                                  <h5 class="card-title text-uppercase text-muted mb-0">Total Orders</h5>
-                                  <span class="h2 font-weight-bold mb-0"><%= countOrders %></span>
-                                </div>
-                            </div>
-
-                            <div class="row col-4">
-                                <div class="">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Total Users</h5>
-                                    <span class="h2 font-weight-bold mb-0"><%= userCount %></span>
-                                </div>
-                            </div>
-                        
-                    </div>
-                </div>
+                <!-- Order details Table -->
                 <!-- ============================================================== -->
-                <!-- Sales chart -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-            <!--    <!-- Order details Table 
-                <!-- ============================================================== -
                 <div class="row" style="margin-top: 50px;">
-                    <!-- column  
+                    <!-- column --> 
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <!-- title 
+                                <!-- title -->
                                 <div class="d-md-flex">
                                     <div>
-                                        <h4 class="card-title">Top Selling Products</h4>
-                                        <h5 class="card-subtitle">Overview of Top Selling Items</h5>
+                                        <h4 class="card-title">Sales Report</h4>
                                     </div>
                                     <div class="ms-auto">
                                         <div class="dl">
-                                            <select class="form-select shadow-none">
-                                                <option value="0" selected>Monthly</option>
-                                                <option value="1">Daily</option>
-                                                <option value="2">Weekly</option>
-                                                <option value="3">Yearly</option>
-                                            </select>
+                                            <table id="orders" class="table table-hover table-striped" style="width: 100%;"
+                                            style="table-layout: fixed;">
+                                                 <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="/admin/sales-report?id=daily"
+                                                                class="btn btn-danger mb-1">Daily</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/admin/sales-report?id=weekly"
+                                                                class="btn btn-danger mb-1">Weekly</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/admin/sales-report?id=monthly"
+                                                                class="btn btn-danger mb-1">Monthy</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/admin/sales-report?id=yearly"
+                                                                class="btn btn-danger mb-1">Yearly</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+       
                                         </div>
                                     </div>
                                 </div>
-                                <!-- title 
+                                <!-- title -->
                             </div>
                             <div class="table-responsive">
                                 <table class="table v-middle">
                                     <thead>
                                         <tr class="bg-light">
-                                            <th class="border-top-0">Products</th>
-                                            <th class="border-top-0">Category</th>
-                                            <th class="border-top-0">Quantity Sold</th>
-                                            <th class="border-top-0">Total Price</th>
+                                            <th class="border-top-0">Sl No:</th>
+                                            <% for (var i = 0; i <= head.length;  i++ ) { %>
+                                                <th class="border-top-0"><%= head[i] %></th>
+                                            <% }; %>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
-                                </table> --
+                                        <% var cc = 0 %>
+                                        <% for (let row of report) { %>
+                                            <tr>
+                                                <td><%= cc=cc+1 %></td>
+                                                <% for (var i = 0; i < Object.keys(row._id).length;  i++ ) { %>
+                                                    <% if(flag == "dly") { %>
+                                                        <td><%= Object.values(row._id)[i] %></td>
+                                                    <% }else if(flag == "mon") { %>
+                                                        <td><%= Object.values(row._id)[i] %></td>
+                                                    <% }else if(flag == "wek") { %>
+                                                        <td><%= Object.values(row._id)[i] %></td>
+                                                    <% } %>
+                                                <% } %>
+                                                <% if(flag == "yrl") { %>
+                                                    <td><%= row._id %></td>
+                                                <% } %>
+                                              <td><%= row.totalOrders %></td>
+                                              <td><%= row.totalSales %></td>
+                                            </tr>
+                                          <% } %>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div> 
                 <!-- ============================================================== -->
                 <!-- Table -->
                 <!-- ============================================================== -->
@@ -320,6 +260,8 @@
         <script src="assets/libs/chartist/dist/chartist.min.js"></script>
         <script src="assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
         <script src="dist/js/pages/dashboards/dashboard1.js"></script>
+        <script src="public/assets/js/script.js"></script>
+
         </body>
 
         </html>
