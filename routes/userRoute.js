@@ -81,7 +81,7 @@ userRoute.get('/checkout',userController.loadCheckout)
 userRoute.post('/checkout',userMiddleware.isLogin,userController.storeOrder)
 userRoute.get('/order-success',userMiddleware.isLogin,userController.loadSuccess)
 
-userRoute.post('/razorpay',userMiddleware.isLogin,userController.razorpayCheckout)
+//userRoute.post('/razorpay',userMiddleware.isLogin,userController.razorpayCheckout)
 userRoute.post('/paypal',userMiddleware.isLogin,userController.paypalCheckout)
 
 userRoute.get('/logout',userMiddleware.isLogin,userController.userLogout)

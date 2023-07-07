@@ -620,23 +620,23 @@ const loadSuccess = async(req,res)=>{
     }
 }
 
-const razorpayCheckout = async(req,res)=>{
-    // req.session = req.session
-    const userData =await User.findById({ _id:req.session.userId })
-    const completeUser = await userData.populate('cart.item.productId')
-    var instance = new Razorpay({ key_id: 'rzp_test_0dGOmkN53nGuBg', key_secret: 'mEkJrYGMckakFAOXVahtu30g' })
-    console.log(req.body);
-    console.log(completeUser.cart.totalPrice);
-                let order = await instance.orders.create({
-                  amount: completeUser.cart.totalPrice*100,
-                  currency: "INR",
-                  receipt: "receipt#1",
-                })
-                res.status(201).json({
-                    success: true,
-                    order
-                })
-}
+// const razorpayCheckout = async(req,res)=>{
+//     req.session = req.session
+//     const userData =await User.findById({ _id:req.session.userId })
+//     const completeUser = await userData.populate('cart.item.productId')
+//     var instance = new Razorpay({ key_id: <Client id>, key_secret: <Client_secre> })
+//     console.log(req.body);
+//     console.log(completeUser.cart.totalPrice);
+//                 let order = await instance.orders.create({
+//                   amount: completeUser.cart.totalPrice*100,
+//                   currency: "INR",
+//                   receipt: "receipt#1",
+//                 })
+//                 res.status(201).json({
+//                     success: true,
+//                     order
+//                 })
+// }
 
 const paypalCheckout = async(req,res)=>{
     // req.session = req.session
@@ -709,7 +709,7 @@ module.exports = {
     editQty,
     loadCheckout,
     storeOrder,
-    razorpayCheckout,
+    //razorpayCheckout,
     paypalCheckout,
     loadSuccess,
     addCoupon,
