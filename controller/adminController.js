@@ -340,6 +340,15 @@ const adminStoreOffer = async(req,res)=>{
     res.redirect('/admin/adminOffer')
 }
 
+const deleteOffer = async (req, res) => {
+    try {
+      const id = req.query.id;
+      await Offer.deleteOne({ _id: id });
+      res.redirect("/admin/adminOffer");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
 const adminLogout = async(req,res)=>{
     adminSession = req.session
@@ -434,5 +443,6 @@ module.exports = {
     adminConfirmorder,
     adminDeliveredorder,
     adminLoadOffer,
-    adminStoreOffer 
+    adminStoreOffer,
+    deleteOffer 
 }

@@ -68,6 +68,7 @@ adminRoute.get('/admin-delivered-order',adminMiddleware.isLogin,adminController.
 
 adminRoute.get('/adminOffer',adminMiddleware.isLogin,adminController.adminLoadOffer)
 adminRoute.post('/adminOffer',adminMiddleware.isLogin,adminController.adminStoreOffer)
+adminRoute.get('/deleteOffer', adminMiddleware.isLogin, adminController.deleteOffer)
 
 
 
