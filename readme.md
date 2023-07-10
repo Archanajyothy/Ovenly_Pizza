@@ -63,7 +63,7 @@ To run the Ovenly Pizza website locally, follow these steps:
 <!-- Add more screenshots if needed -->
 
 ## Demo
-[<img src="https://img.youtube.com/vi/tMRJGV4QFBE/hqdefault.jpg" width="600" height="300"/>](https://www.youtube.com/embed/tMRJGV4QFBE)
+[<img src="https://img.youtube.com/vi/tMRJGV4QFBE/0.jpg" />](https://www.youtube.com/embed/tMRJGV4QFBE)
 
 <!-- Provide a GIF video demonstrating the functionality of your website -->
 
