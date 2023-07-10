@@ -301,7 +301,7 @@ const blockUser = async(req,res)=>{
 }
 
 const viewOrder = async(req,res)=>{
-    const orderData = await Order.find()
+    const orderData = await Order.find().sort({createdAt: -1})
     if(orderType == undefined){
         res.render('adminOrder',{order:orderData})
     }else{

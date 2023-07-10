@@ -85,12 +85,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% var cc = 0 %>
                                             <% if( order.length> 0){ %>
                                                 <% for(let i=1;i <=order.length; i++){ %>
                                                     <% if(order[i-1].status =="Comfirmed"){ %>
+                                                        <% var cc = cc+ 1 %>
                                                     <tr>
                                                         <th scope="row">
-                                                            <%= i %>
+                                                            <%= cc %>
                                                         </th>
                                                         <td>
                                                             <%= order[i-1]._id %>
