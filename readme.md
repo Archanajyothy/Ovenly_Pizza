@@ -37,16 +37,49 @@ To run the Ovenly Pizza website locally, follow these steps:
 4. Open a web browser and visit `http://localhost:3000` to access the Ovenly Pizza website.
 
 ## Screenshots
-![Screenshot 1](/path/to/screenshot1.png)
-![Screenshot 2](/path/to/screenshot2.png)
+![Sign up](/assets/sign_up.png)
+![Sign In](/assets/sign_in.png)
+![Home](/assets/home.png)
+![Menu](/assets/menu.png)
+![Product page](/assets/product_page.png)
+![Cart](/assets/cart_page.png)
+![Wishlist](/assets/wishlist.png)
+![Checkout page](/assets/checkout_page.png)
+![Order confirmation](/assets/paypal_order_confirmation.png)
+![Payment](/assets/paypal_payment.png)   
+![Order success](/assets/order_success_page.png)  
+![User Dashboard](/assets/user_dashboard.png) 
+![Addresses](/assets/addresses_userside.png)
+![Transaction history](/assets/transaction_history_userside.png)     
+![Admin login](/assets/admin_login.png)
+![Admin Dashboard](/assets/admin_dashboard.png)
+![Inventory management](/assets/admin_inventory_mgmnt.png)
+![Offer management](/assets/admin_offer_mngmnt.png)
+![Category Management](/assets/category_mngmnt.png)
+![Order Management](/assets/order_mngmnt.png)
+![Admin Profile](/assets/admin_profilepage.png)
+![User Management](/assets/users_list.png)
+![Sales report](/assets/sales_report.png)
 <!-- Add more screenshots if needed -->
 
 ## Demo
-![Demo](/path/to/demo.gif)
+![Demo](https://youtu.be/tMRJGV4QFBE)
 <!-- Provide a GIF video demonstrating the functionality of your website -->
 
 ## Author
-Created by [Archana Jyothy](https://github.com/Archanajyothy/)
+Created by 
+[Archana Jyothy](https://www.linkedin.com/in/archana-j-421851167/)
+
+##My Blogs
+Medium
+[](https://medium.com/@archanajyothy)
+
+Dev.to
+[](https://dev.to/archanajyothy)
+
+##Social Media 
+Twitter
+[](https://twitter.com/archanajyothy/)
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
