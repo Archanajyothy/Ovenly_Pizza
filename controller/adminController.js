@@ -184,17 +184,17 @@ const updateAddProduct = async(req,res)=>{
 
 
 const viewProduct = async(req,res)=>{
-    const productData = await Product.find()
+    const productData = await Product.find().sort({name:1})
     res.render('adminProduct',{products:productData})
 }
 const viewUser = async(req,res)=>{
-    const userData = await User.find({isAdmin:0})
+    const userData = await User.find({isAdmin:0}).sort({name:1})
     res.render('adminUser',{users:userData})
 }
 
 
 const viewCategory = async(req,res)=>{
-    const categoryData = await Category.find()
+    const categoryData = await Category.find().sort({name:1})
     res.render('adminCategory',{category:categoryData})
 }
 const addCategory = async(req,res)=>{
@@ -327,7 +327,7 @@ const adminDeliveredorder = async(req,res)=>{
 
 
 const adminLoadOffer = async(req,res)=>{
-    const offerData = await Offer.find()
+    const offerData = await Offer.find().sort({name:1})
     res.render('adminOffer',{offer:offerData})
 }
 const adminStoreOffer = async(req,res)=>{

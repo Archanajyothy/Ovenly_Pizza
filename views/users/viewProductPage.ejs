@@ -71,13 +71,6 @@
 
                         <h2 class="nk-product-title h3"><%= product.name %> </h2>
 
-                        <!-- <select class="form-control">
-                            <option value="" disabled selected>Select Platform</option>
-                            <option value="ps4">PS4</option>
-                            <option value="xbox">Xbox 1</option>
-                            <option value="pc">PC</option>
-                        </select> -->
-
                         <div class="nk-product-description">
                             <p><%= product.description %></p>
                         </div>
@@ -98,14 +91,6 @@
                         </form>
                         <div class="nk-gap-3"></div>
                         <!-- END: Add to Cart -->
-
-                        <!-- START: Meta Commented by me
-                        <div class="nk-product-meta">
-                            <div><strong>SKU</strong>: 300-200-503</div>
-                            <div><strong>Categories</strong>: <a href="#">online</a>, <a href="#">FPS</a>, <a href="#">MMO</a>, <a href="#">Action games</a></div>
-                            <div><strong>Tags</strong>: <a href="#">blizzard</a>, <a href="#">action</a>, <a href="#">MMO</a></div>
-                        </div>
-                         END: Meta -->
                     </div>
                 </div>
                 <!-- start carousel -->
@@ -127,25 +112,7 @@
                     <% } %>
                 </div>
             </div>
-            <!-- <div class="nk-carousel nk-carousel-x4" data-autoplay="5000" data-dots="false"
-            data-cell-align="left" data-arrows="true">
-            <div class="nk-carousel-inner">
-
-                <% for(let key of products){%>
-                    <% if(key.price >200){ %>
-                <div>
-                    <div class="pl-5 pr-5">
-                        <div class="nk-product-cat-3">
-                            <a class="nk-product-image" href="/view-product?id=<%= key._id %>">
-                                <img src="./assets/uploads/<%= key.image[0] %>"
-                                    alt="lol">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <% }} %>
-            </div>
-        </div> -->
+            
             <!-- end carousel -->
                 <!-- START: Share -->
                 <div class="nk-gap-2"></div>
@@ -157,10 +124,6 @@
                         <li><span class="nk-social-twitter" title="Share page on Twitter" data-share="twitter"><span class="fab fa-twitter"></span></span></li>
                         <li><span class="nk-social-pinterest" title="Share page on Pinterest" data-share="pinterest"><span class="fab fa-pinterest-p"></span></span></li>
 
-                        <!-- Additional Share Buttons
-                            <li><span class="nk-social-linkedin" title="Share page on LinkedIn" data-share="linkedin"><span class="fab fa-linkedin"></span></span></li>
-                            <li><span class="nk-social-vk" title="Share page on VK" data-share="vk"><span class="fab fa-vk"></span></span></li>
-                        -->
                     </ul>
                 </div>
                 <!-- END: Share -->
@@ -169,110 +132,7 @@
 
             </div>
 
-            <!-- START: Related Products -->
-            <!-- <div class="nk-gap-3"></div>
-            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Related</span> Products</span></h3>
-            <div class="nk-gap"></div>
-            <div class="row vertical-gap">
-                
-                
-                <div class="col-md-6">
-                    <div class="nk-product-cat">
-                        <a class="nk-product-image" href="store-product.html">
-                            <img src="assets/images/product-11-xs.jpg" alt="She gave my mother">
-                        </a>
-                        <div class="nk-product-cont">
-                            <h3 class="nk-product-title h5"><a href="store-product.html">She gave my mother</a></h3>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-price">€ 14.00</div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                <div class="col-md-6">
-                    <div class="nk-product-cat">
-                        <a class="nk-product-image" href="store-product.html">
-                            <img src="assets/images/product-12-xs.jpg" alt="A hundred thousand">
-                        </a>
-                        <div class="nk-product-cont">
-                            <h3 class="nk-product-title h5"><a href="store-product.html">A hundred thousand</a></h3>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i></div>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-price">€ 20.00</div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                <div class="col-md-6">
-                    <div class="nk-product-cat">
-                        <a class="nk-product-image" href="store-product.html">
-                            <img src="assets/images/product-13-xs.jpg" alt="So saying he unbuckled">
-                        </a>
-                        <div class="nk-product-cont">
-                            <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a></h3>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-rating" data-rating="5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-price">€ 23.00</div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                <div class="col-md-6">
-                    <div class="nk-product-cat">
-                        <a class="nk-product-image" href="store-product.html">
-                            <img src="assets/images/product-14-xs.jpg" alt="However, I have reason">
-                        </a>
-                        <div class="nk-product-cont">
-                            <h3 class="nk-product-title h5"><a href="store-product.html">However, I have reason</a></h3>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-rating" data-rating="1.5"> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-price">€ 32.00</div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                <div class="col-md-6">
-                    <div class="nk-product-cat">
-                        <a class="nk-product-image" href="store-product.html">
-                            <img src="assets/images/product-15-xs.jpg" alt="At first, for some time">
-                        </a>
-                        <div class="nk-product-cont">
-                            <h3 class="nk-product-title h5"><a href="store-product.html">At first, for some time</a></h3>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-rating" data-rating="4"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i></div>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-price">€ 14.00</div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-                <div class="col-md-6">
-                    <div class="nk-product-cat">
-                        <a class="nk-product-image" href="store-product.html">
-                            <img src="assets/images/product-16-xs.jpg" alt="When the last &#39;natural&#39;">
-                        </a>
-                        <div class="nk-product-cont">
-                            <h3 class="nk-product-title h5"><a href="store-product.html">When the last &#39;natural&#39;</a></h3>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i></div>
-                            <div class="nk-gap-1"></div>
-                            <div class="nk-product-price">€ 20.00</div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div> -->
-            <!-- END: Related Products -->
+            
         </div>
         <div class="col-lg-4">
             <!--
@@ -300,50 +160,10 @@
         <ul class="nk-widget-categories">
             <li><a href="/catalog?id=Vegetarian">Vegetarian</a></li>
             <li><a href="/catalog?id=Non%20Vegetarian">Non-Vegetarian</a></li>
-            <!--    
-            <li><a href="#">RTS</a></li>
-            <li><a href="#">Action</a></li>
-            <li><a href="#">RPG</a></li>
-            <li><a href="#">MMO</a></li>
-            <li><a href="#">MOBA</a></li>
-            <li><a href="#">Adventure</a></li>
-            <li><a href="#">Indie</a></li>
-            <li><a href="#">Strategy</a></li>
-            <li><a href="#">Racing</a></li>
-            <li><a href="#">Simulator</a></li>
-            -->
         </ul>
     </div>
 </div>
-<!--start price filter *******
-<div class="nk-widget nk-widget-highlighted">
-    <h4 class="nk-widget-title"><span><span class="text-main-1">Price</span> Filter</span></h4>
-    <div class="nk-widget-content">
-        <div class="nk-input-slider">
-            <input
-                type="text"
-                name="price-filter"
-                data-slider-min="0"
-                data-slider-max="1800"
-                data-slider-step="1"
-                data-slider-value="[200, 1200]"
-                data-slider-tooltip="hide"
-            >
-            <div class="nk-gap"></div>
-            <div>
-                <div class="text-white mt-4 float-left">
-                    PRICE:
-                    <strong class="text-main-1">€ <span class="nk-input-slider-value-0"></span></strong>
-                    -
-                    <strong class="text-main-1">€ <span class="nk-input-slider-value-1"></span></strong>
-                </div>
-                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white float-right">Apply</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-******* end price filter-->
+
 <div class="nk-widget nk-widget-highlighted">
     <h4 class="nk-widget-title"><span><span class="text-main-1">We</span> Are Social</span></h4>
     <div class="nk-widget-content">
@@ -366,29 +186,7 @@
             <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
             <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
 
-            <!-- Additional Social Buttons
-                <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
-                <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
-                <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
-                <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
-                <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
-                <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
-                <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
-                <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
-                <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
-                <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
-                <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
-                <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
-                <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
-                <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
-                <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
-                <li><a class="nk-social-steam" href="#"><span class="fab fa-steam"></span></a></li>
-                <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
-                <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
-                <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
-                <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
-                <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
-            -->
+            
         </ul>
     </div>
 </div>
@@ -479,50 +277,7 @@
                     </div>
                 </div>
             </div>
-            <!--start of latest post section*******
-            <div class="col-md-6">
-                <div class="nk-widget">
-                    <h4 class="nk-widget-title"><span class="text-main-1">Latest</span> Posts</h4>
-                    <div class="nk-widget-content">
-                        <div class="row vertical-gap sm-gap">
-                            
-                            <div class="col-lg-6">
-                                <div class="nk-widget-post-2">
-                                    <a href="blog-article.html" class="nk-post-image">
-                                        <img src="assets/images/post-1-sm.jpg" alt="">
-                                    </a>
-                                    <div class="nk-post-title"><a href="blog-article.html">Smell magic in the air. Or maybe barbecue</a></div>
-                                    <div class="nk-post-date">
-                                        <span class="fa fa-calendar"></span> Sep 18, 2018
-                                        <span class="fa fa-comments"></span> <a href="#">4</a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-lg-6">
-                                <div class="nk-widget-post-2">
-                                    <a href="blog-article.html" class="nk-post-image">
-                                        <img src="assets/images/post-2-sm.jpg" alt="">
-                                    </a>
-                                    <div class="nk-post-title"><a href="blog-article.html">Grab your sword and fight the Horde</a></div>
-                                    <div class="nk-post-date">
-                                        <span class="fa fa-calendar"></span> Sep 5, 2018
-                                        <span class="fa fa-comments"></span> <a href="#">7</a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="nk-widget">
-                    <h4 class="nk-widget-title"><span class="text-main-1">In</span> Twitter</h4>
-                    <div class="nk-widget-content">
-                        <div class="nk-twitter-list" data-twitter-count="1"></div>
-                    </div>
-                </div>
-            </div>
-            *******end of latest post section-->
+            
         </div>
         <div class="nk-gap-3"></div>
     </div>
@@ -539,31 +294,7 @@
                     <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
                     <li><a class="nk-social-twitter" href="#" target="_blank"><span class="fab fa-twitter"></span></a></li>
                     <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
-
-                    <!-- Additional Social Buttons
-                        <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
-                        <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
-                        <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
-                        <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
-                        <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
-                        <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
-                        <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
-                        <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
-                        <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
-                        <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
-                        <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
-                        <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
-                        <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
-                        <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
-                        <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
-                        <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
-                        <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
-                        <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
-                        <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
-                        <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
-                        <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
-                        <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
-                    -->
+                 
                 </ul>
             </div>
         </div>

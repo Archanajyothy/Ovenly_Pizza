@@ -172,7 +172,7 @@ const loadCatalog =async(req,res)=>{
             ]
         }).countDocuments()
     }else{
-        productData = await Product.find()
+        productData = await Product.find().sort({name:1})
         count = await Product.find().countDocuments()
     }
 
@@ -380,9 +380,8 @@ const loadWishlist = async(req,res)=>{
     try {
         // req.session = req.session
         if(req.session.userId){
-            const userData =await User.findById({ _id:req.session.userId })
+            const userData = await User.findById({ _id:req.session.userId })
             const completeUser = await userData.populate('wishlist.item.productId')
-
             res.render('wishlist',{isLoggedin,id:req.session.userId,wishlistProducts:completeUser.wishlist})
         }else{
             res.render('wishlist',{isLoggedin,id:req.session.userId})  
