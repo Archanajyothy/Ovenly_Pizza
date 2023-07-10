@@ -63,21 +63,21 @@ To run the Ovenly Pizza website locally, follow these steps:
 <!-- Add more screenshots if needed -->
 
 ## Demo
-![Demo](https://youtu.be/tMRJGV4QFBE)
+{% embed https://youtu.be/tMRJGV4QFBE %}
 <!-- Provide a GIF video demonstrating the functionality of your website -->
 
 ## Author
 Created by 
 [Archana Jyothy](https://www.linkedin.com/in/archana-j-421851167/)
 
-##My Blogs
+## My Blogs
 Medium
 [](https://medium.com/@archanajyothy)
 
 Dev.to
 [](https://dev.to/archanajyothy)
 
-##Social Media 
+## Social Media 
 Twitter
 [](https://twitter.com/archanajyothy/)
 
