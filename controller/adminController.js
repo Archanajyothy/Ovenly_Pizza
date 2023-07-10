@@ -149,10 +149,17 @@ const verifyLogin = async(req,res)=>{
 
 
 const addProductLoad = async(req,res)=>{
-    const categoryData = await Category.find()
+    const categoryData = await Category.find({isAvailable:1})
     console.log(categoryData);
-    res.render('add-product',{category:categoryData})
+    try
+    {
+        res.render('add-product',{category:categoryData})
+    }
+    catch(error){
+        console.log(error.message)
+    }
 }
+//Adding product
 const updateAddProduct = async(req,res)=>{
     try {
         const images = req.files;
@@ -175,7 +182,7 @@ const updateAddProduct = async(req,res)=>{
         if(productData){
             res.render('add-product',{message:"Product added sucessfully.",category:categoryData})
         }else{
-            res.render('add-product',{message:"Product addition failed."})
+            res.render('add-product',{message:"Product addition failed.",category:categoryData})
         }
     } catch (error) {
         console.log(error.message);
@@ -184,9 +191,97 @@ const updateAddProduct = async(req,res)=>{
 
 
 const viewProduct = async(req,res)=>{
-    const productData = await Product.find().sort({name:1})
-    res.render('adminProduct',{products:productData})
+    try{
+        const productData = await Product.find().sort({name:1})
+        res.render('adminProduct',{products:productData})
+    }catch(error)
+    {
+        console.log(error.message);
+    }
+
 }
+
+const editProduct = async(req,res)=>{
+    try {
+        const id = req.query.id
+        const productData =await Product.findById({ _id:id })
+        const categoryData = await Category.find({isAvailable:1})
+        if(productData){
+            res.render('edit-product',{ product:productData, category:categoryData})
+        }
+        else{
+            res.redirect('/admin/view-product',{message:"Product doesn'nt exist"})
+        }
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+const updateEditProduct = async(req,res)=>{
+    try {
+        const id = req.body.id
+        const name = req.body.gName
+        const platform = req.body.gPlatform
+        const genre = req.body.genre
+        const price = req.body.gPrice
+        const stock = req.body.stock
+        const rating = req.body.gRating
+        const description = req.body.gDescription
+        const images = req.files;
+        const image = images.map((x)=>x.filename)
+        
+        if(image.length == 0)
+        {
+        const productData = await Product.findByIdAndUpdate({ _id:req.body.id },{
+             $set:{
+                name:req.body.gName,
+                platform:req.body.gPlatform,
+                price:req.body.gPrice,
+                description:req.body.gDescription,
+                stock:req.body.stock,
+                rating:req.body.gRating,
+                genre:req.body.genre,
+                   
+            } 
+        })
+        }else{
+            await Product.updateOne(
+                { _id:req.body.id },
+                { 
+                  $set: {
+                    name,
+                    platform,
+                    price,  
+                    description,
+                    stock,
+                    rating,
+                    genre,
+                    image
+                  }
+                })
+            }
+            
+            res.redirect('/admin/view-product')
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const deleteProduct = async(req,res)=>{
+    try {
+        
+        const id = req.query.id
+        const productData = await Product.updateOne({ _id:id },{$set:{isAvailable:0}})
+        res.redirect('/admin/view-product')
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 const viewUser = async(req,res)=>{
     const userData = await User.find({isAdmin:0}).sort({name:1})
     res.render('adminUser',{users:userData})
@@ -221,63 +316,6 @@ const deleteCategory = async(req,res)=>{
         const id = req.query.id
         await Category.deleteOne({ _id:id })
         res.redirect('/admin/adminCategory')
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
-
-const editProduct = async(req,res)=>{
-    try {
-        const id = req.query.id
-        const productData =await Product.findById({ _id:id })
-        if(productData){
-            res.render('edit-product',{ product:productData })
-        }
-        else{
-            res.redirect('/admin/view-product')
-        }
-
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
-const updateEditProduct = async(req,res)=>{
-    try {
-        const images = req.files;
-        const productData = await Product.findByIdAndUpdate({ _id:req.body.id },{
-             $set:{
-                name:req.body.gName,
-                platform:req.body.gPlatform,
-                price:req.body.gPrice,
-                description:req.body.gDescription,
-                stock:req.body.stock,
-                rating:req.body.gRating,
-                image:images.map((x)=>x.filename)
-                // image:req.file.filename
-            } 
-        })
-        console.log(req.body.genre);
-        // productData.genre.push(req.body.genre)
-        productData.genre = req.body.genre
-        await productData.save()
-        console.log(productData);
-        // productData.push({genre:req.body.genre})
-        res.redirect('/admin/view-product')
-
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
-const deleteProduct = async(req,res)=>{
-    try {
-        
-        const id = req.query.id
-        const productData = await Product.updateOne({ _id:id },{$set:{isAvailable:0}})
-        res.redirect('/admin/view-product')
-
     } catch (error) {
         console.log(error.message);
     }

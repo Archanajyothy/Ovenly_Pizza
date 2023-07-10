@@ -415,7 +415,7 @@ const deleteWishlist = async(req,res)=>{
     const productId = req.query.id
     // req.session = req.session
     const userData =await User.findById({_id:req.session.userId})
-    userData.removefromWishlist(productId)
+    await userData.removefromWishlist(productId)
     res.redirect('/wishlist')
 }
 
