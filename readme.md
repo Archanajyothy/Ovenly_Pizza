@@ -63,23 +63,19 @@ To run the Ovenly Pizza website locally, follow these steps:
 <!-- Add more screenshots if needed -->
 
 ## Demo
-{% embed https://youtu.be/tMRJGV4QFBE %}
+[![](https://img.youtube.com/vi/tMRJGV4QFBE/0.jpg)](http://www.youtube.com/watch?v=tMRJGV4QFBE Click to play on Youtube.com“)
 <!-- Provide a GIF video demonstrating the functionality of your website -->
 
 ## Author
-Created by 
-[Archana Jyothy](https://www.linkedin.com/in/archana-j-421851167/)
+Created by [Archana Jyothy](https://www.linkedin.com/in/archana-j-421851167/)
 
 ## My Blogs
-Medium
-[](https://medium.com/@archanajyothy)
+[Medium](https://medium.com/@archanajyothy)
 
-Dev.to
-[](https://dev.to/archanajyothy)
+[Dev.to](https://dev.to/archanajyothy)
 
 ## Social Media 
-Twitter
-[](https://twitter.com/archanajyothy/)
+[Twitter](https://twitter.com/archanajyothy/)
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
