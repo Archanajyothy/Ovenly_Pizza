@@ -47,7 +47,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <% for(let key of category){ %>
-                  <a class="dropdown-item" href="/catalog?id=<%=key.name%>" onclick="updateButtonText(event)" return false;><%= key.name %></a>
+                  <a class="dropdown-item" href="/catalog?id=<%=key.name%>" onclick="updateButtonText(event)" return false;><%= key.name.charAt(0).toUpperCase()+key.name.slice(1) %></a>
                   <% } %>
                 </div>
             </div>

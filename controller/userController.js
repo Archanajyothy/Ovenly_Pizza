@@ -117,7 +117,6 @@ const loadStore = async(req,res)=>{
     res.render('store',{isLoggedin,products:productData,id:req.session.userId})
 }
 const loadCatalog =async(req,res)=>{
-    // req.session = req.session
     //search
     let search = ''
     if (req.query.search) {
@@ -399,7 +398,7 @@ const addToWishlist = async(req,res)=>{
     userData.addToWishlist(productData)
     res.redirect('/catalog')
 }
-const addCartdelWishlsit = async(req,res)=>{
+const addCartdelWishlist = async(req,res)=>{
     const productId = req.query.id
     console.log(productId);
     // req.session = req.session
@@ -715,5 +714,5 @@ module.exports = {
     loadWishlist,
     addToWishlist,
     deleteWishlist,
-    addCartdelWishlsit
+    addCartdelWishlist
  }

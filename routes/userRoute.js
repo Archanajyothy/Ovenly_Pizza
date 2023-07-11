@@ -72,7 +72,7 @@ userRoute.post('/edit-qty',userController.editQty)
 userRoute.get('/wishlist',userController.loadWishlist)
 userRoute.post('/add-to-wishlist',userController.addToWishlist)
 userRoute.get('/delete-wishlist',userController.deleteWishlist)
-userRoute.get('/add-to-cart-delete-wishlist',userController.addCartdelWishlsit)
+userRoute.get('/add-to-cart-delete-wishlist',userController.addCartdelWishlist)
 
 userRoute.post('/add-coupon',userController.addCoupon)
 

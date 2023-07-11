@@ -89,7 +89,7 @@
                                                             <%= i %>
                                                         </th>
                                                         <td>
-                                                            <%= category[i-1].name %>
+                                                            <%= category[i-1].name.toUpperCase() %>
                                                         </td>
                                                         <td>
                                                             <a class="text-danger"
@@ -106,6 +106,10 @@
 
                                         </tbody>
                                     </table>
+                                    <% if(typeof errormessage !== 'undefined'){ %>
+                                        <h6 style="color:red">
+                                        <%= errormessage %></h6>
+                                   <% } %>
                                 </div>
                             </div>
                         </div>

@@ -294,21 +294,26 @@ const viewCategory = async(req,res)=>{
 }
 const addCategory = async(req,res)=>{
     try {
-        const checkCategory = await Category.find({name:req.body.category})
+        const categoryData = await Category.find().sort({name:1})
+        const category = req.body.category
+        const uniqueCategory = category.trim().toLowerCase().replace(/[^a-z0-9]+/g, '');
+        const existingCategory = await Category.find({name:uniqueCategory})
 
-        if(checkCategory.length === 0)
+        if(existingCategory.length === 0)
         {
             const category = Category({
-                name:req.body.category
+                name: uniqueCategory //req.body.category
             })
             const categoryData = await category.save()
             res.redirect('/admin/adminCategory')
         }
-        else if(checkCategory[0].name == req.body.category){
-        res.redirect('/admin/adminCategory')
+        else if(existingCategory[0].name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '') == uniqueCategory){
+            console.log(existingCategory[0].name.trim().toLowerCase().replace(/[^a-z0-9]+/g, ''))
+        res.render('adminCategory',{category:categoryData,errormessage:"Category already exist. Please enter a new category."})
         }
     } catch (error) {
-        console.log(error.message);
+        //console.log(error.message);
+        console.error(`Failed to add category: ${error.message}`)
     } 
 }
 const deleteCategory = async(req,res)=>{

@@ -1,4 +1,5 @@
 const session = require("express-session");
+const User = require('../models/userModel')
 
 let isAdminLoggedin = false
 let adminSession = false || {}
