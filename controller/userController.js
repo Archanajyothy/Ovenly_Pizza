@@ -35,6 +35,7 @@ let couponTotal = 0
 
 //OTP 
 const sendMessage =  function(mobile,res){
+    try{
     let randomOTP = Math.floor(Math.random()*10000)
     var options = {
       authorization:'MSOj0bTnaP8phCARmWqtzkgEV4ZN2Ff9eUxXI7iJQ5HcDBKsL1vYiamnRcMxrsjDJboyFEXl0Sk37pZq',
@@ -49,6 +50,9 @@ const sendMessage =  function(mobile,res){
       console.log(error)
     })
     return randomOTP;
+    }catch(error){
+        console.log(error.message);
+    }
    }
 
 
@@ -64,8 +68,21 @@ const securePassword = async(password)=>{
 
 
 const loadLogin = (req,res)=>{
+    try{
     res.render('../signin')
+    } catch (error) {
+        console.log(error.message);
+    }
 }
+
+const loadSignup = (req,res)=>{
+    try{
+    res.render('../signup')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 const verifyLogin = async(req,res)=>{
     try{
         
@@ -106,8 +123,8 @@ const verifyLogin = async(req,res)=>{
 
 
 const loadStore = async(req,res)=>{
-    // req.session = req.session
     //coupon initialize
+    try{
     if(req.session.offer){}else{
         req.session.offer = offer
         req.session.couponTotal = couponTotal
@@ -115,9 +132,13 @@ const loadStore = async(req,res)=>{
     // console.log('req.session:',req.session);
     const productData = await Product.find()
     res.render('store',{isLoggedin,products:productData,id:req.session.userId})
+    } catch (error) {
+        console.log(error.message);
+      }
 }
 const loadCatalog =async(req,res)=>{
     //search
+    try{
     let search = ''
     if (req.query.search) {
         search = req.query.search
@@ -185,11 +206,12 @@ const loadCatalog =async(req,res)=>{
         previous:new Number(page)-1,
         next:new Number(page)+1
     })
+    } catch (error) {
+        console.log(error.message);
+      }
 }
 
-const loadSignup = (req,res)=>{
-    res.render('../signup')
-}
+
 const storeSignup =async (req,res)=>{
     try{
         const userCheck = await User.findOne({email:req.body.email})
@@ -223,11 +245,15 @@ const storeSignup =async (req,res)=>{
 
 
 const loadOtp = async(req,res)=>{
+    try{
     const userData = await User.findById({_id:newUser})
     const otp = sendMessage(userData.mobile,res)
     newOtp = otp
     console.log('otp:',otp);
     res.render('../otpVerify',{otp:otp,user:newUser})
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 const verifyOtp = async(req,res)=>{
     try {
@@ -258,21 +284,26 @@ const userDashboard = async(req,res)=>{
         console.log(error.message)
     }
 }
+
 const userTrasactions = async(req,res)=>{
     try {
-        const orderData = await Orders.find({userId:req.session.userId})
+        const orderData = await Orders.find({userId:req.session.userId}).sort({createdAt:-1})
         const userData = await User.findById({_id:req.session.userId})
         res.render('trasactions',{user:userData,userOrders:orderData})
     } catch (error) {
         console.log(error.message)
     }
 }
+
 const userLogout = async(req,res)=>{
-    // req.session = req.session
+    try{
     req.session.userId = false
     isLoggedin = false
     console.log("logged out");
     res.redirect('/')
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 
@@ -302,24 +333,35 @@ const viewProductPage = async(req,res)=>{
 
 
 const editUser = async(req,res)=>{
+    try{
     const id = req.query.id
     const userData =await User.findById({ _id:id })
     res.render('edit-user',{user:userData})
+    } catch (error) {
+        console.log(error.message);
+    }
 }
+
 const updateUser = async(req,res)=>{
+    try{
     const productData = await User.findByIdAndUpdate({ _id:req.body.id },{ $set:{name:req.body.name,email:req.body.email,mobile:req.body.mno} })
     res.redirect('/dashboard')
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 const cancelOrder = async(req,res)=>{
+    try{
     const id = req.query.id
     console.log(id);
     await Orders.deleteOne({ _id:id })
     res.redirect('/dashboard')
-
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 const viewOrder = async(req,res)=>{
     try {
-        // req.session = req.session
         if(req.session.userId){
             const id = req.query.id
             req.session.currentOrder = id
@@ -337,7 +379,6 @@ const viewOrder = async(req,res)=>{
 }
 const returnProduct = async(req,res)=>{
     try {
-        // req.session = req.session
         if(req.session = req.session){
             const id = req.query.id
             // console.log('id',new String(id));
@@ -377,7 +418,6 @@ const returnProduct = async(req,res)=>{
 
 const loadWishlist = async(req,res)=>{
     try {
-        // req.session = req.session
         if(req.session.userId){
             const userData = await User.findById({ _id:req.session.userId })
             const completeUser = await userData.populate('wishlist.item.productId')
@@ -391,14 +431,19 @@ const loadWishlist = async(req,res)=>{
 }
 
 const addToWishlist = async(req,res)=>{
+    try{
     const productId = req.query.id
-    // req.session = req.session
     const userData =await User.findById({_id:req.session.userId})
     const productData =await Product.findById({ _id:productId })
     userData.addToWishlist(productData)
     res.redirect('/catalog')
+    } catch (error) {
+        console.log(error.message);
+    }
 }
+
 const addCartdelWishlist = async(req,res)=>{
+    try{
     const productId = req.query.id
     console.log(productId);
     // req.session = req.session
@@ -409,13 +454,20 @@ const addCartdelWishlist = async(req,res)=>{
         userData.removefromWishlist(productId)
     }
     res.redirect('/cart')
+    } catch (error) {
+        console.log(error.message);
+    }
 }
+
 const deleteWishlist = async(req,res)=>{
+    try{
     const productId = req.query.id
-    // req.session = req.session
     const userData =await User.findById({_id:req.session.userId})
     await userData.removefromWishlist(productId)
     res.redirect('/wishlist')
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 
@@ -450,6 +502,7 @@ const loadCart = async(req,res)=>{
 }
 
 const addToCart = async(req,res,next)=>{
+    try{
     const productId = req.query.id
     // req.session = req.session
     const userData =await User.findById({_id:req.session.userId})
@@ -461,9 +514,13 @@ const addToCart = async(req,res,next)=>{
         console.log('usertemp:',usertemp);
     }
     res.redirect('/catalog')
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 const deleteCart = async(req,res,next)=>{
+    try{
     const productId = req.query.id
     // req.session = req.session
     const userData =await User.findById({_id:req.session.userId})
@@ -475,6 +532,9 @@ const deleteCart = async(req,res,next)=>{
         console.log('usertemp:',usertemp);
     }
     res.redirect('/cart')
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 const editQty = async(req,res)=>{
@@ -585,7 +645,6 @@ const storeOrder = async(req,res)=>{
 
 const loadSuccess = async(req,res)=>{
     try {
-        // req.session = req.session
         if(req.session.userId){
             const userData =await User.findById({ _id:req.session.userId })
             const productData = await Product.find()
@@ -618,23 +677,6 @@ const loadSuccess = async(req,res)=>{
     }
 }
 
-// const razorpayCheckout = async(req,res)=>{
-//     req.session = req.session
-//     const userData =await User.findById({ _id:req.session.userId })
-//     const completeUser = await userData.populate('cart.item.productId')
-//     var instance = new Razorpay({ key_id: <Client id>, key_secret: <Client_secre> })
-//     console.log(req.body);
-//     console.log(completeUser.cart.totalPrice);
-//                 let order = await instance.orders.create({
-//                   amount: completeUser.cart.totalPrice*100,
-//                   currency: "INR",
-//                   receipt: "receipt#1",
-//                 })
-//                 res.status(201).json({
-//                     success: true,
-//                     order
-//                 })
-// }
 
 const paypalCheckout = async(req,res)=>{
     // req.session = req.session
@@ -645,7 +687,6 @@ const paypalCheckout = async(req,res)=>{
 
 const addCoupon = async(req,res)=>{
     try {
-        // req.session = req.session
         if(req.session.userId){
             const userData =await User.findById({ _id:req.session.userId })
             const offerData = await Offer.findOne({name:req.body.offer})
@@ -707,7 +748,6 @@ module.exports = {
     editQty,
     loadCheckout,
     storeOrder,
-    //razorpayCheckout,
     paypalCheckout,
     loadSuccess,
     addCoupon,

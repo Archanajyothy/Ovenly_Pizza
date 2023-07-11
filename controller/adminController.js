@@ -110,7 +110,11 @@ const loadAdminProfile = async(req,res)=>{
 }
 
 const loadLogin = (req,res)=>{
+    try{
     res.render('adminSignin')
+    } catch (error) {
+      console.log(error.message);
+    }
 }
 const verifyLogin = async(req,res)=>{
 
@@ -283,14 +287,22 @@ const deleteProduct = async(req,res)=>{
 }
 
 const viewUser = async(req,res)=>{
+    try{
     const userData = await User.find({isAdmin:0}).sort({name:1})
     res.render('adminUser',{users:userData})
+    } catch (error) {
+      console.log(error.message);
+    }
 }
 
 
 const viewCategory = async(req,res)=>{
+    try{
     const categoryData = await Category.find().sort({name:1})
     res.render('adminCategory',{category:categoryData})
+    }catch (error) {
+      console.log(error.message);
+    }
 }
 const addCategory = async(req,res)=>{
     try {
@@ -344,36 +356,58 @@ const blockUser = async(req,res)=>{
 }
 
 const viewOrder = async(req,res)=>{
+    try{
     const orderData = await Order.find().sort({createdAt: -1})
     if(orderType == undefined){
         res.render('adminOrder',{order:orderData})
     }else{
         id = req.query.id
         res.render('adminOrder',{id:id,order:orderData})
+    }    
+    } catch (error) {
+      console.log(error.message);
     }
 }
+
 const adminCancelOrder = async(req,res)=>{
+    try{
     const id = req.query.id
     await Order.deleteOne({ _id:id })
     res.redirect('/admin/adminOrder')
+    } catch (error) {
+      console.log(error.message);
+    }
 }
 const adminConfirmorder = async(req,res)=>{
+    try{
     const id = req.query.id
     await Order.updateOne({_id:id},{$set:{'status':'Comfirmed'}})
     res.redirect('/admin/adminOrder')
+    } catch (error) {
+      console.log(error.message);
+    }
 }
 const adminDeliveredorder = async(req,res)=>{
+    try{
     const id = req.query.id
     await Order.updateOne({_id:id},{$set:{'status':'Delivered'}})
     res.redirect('/admin/adminOrder')
+    } catch (error) {
+      console.log(error.message);
+    }
 }
 
 
 const adminLoadOffer = async(req,res)=>{
+    try{
     const offerData = await Offer.find().sort({name:1})
     res.render('adminOffer',{offer:offerData})
+    } catch (error) {
+      console.log(error.message);
+    }
 }
 const adminStoreOffer = async(req,res)=>{
+    try{
     const offer =Offer({
         name:req.body.name,
         type:req.body.type,
@@ -381,6 +415,9 @@ const adminStoreOffer = async(req,res)=>{
     })
     await offer.save()
     res.redirect('/admin/adminOffer')
+    } catch (error) {
+      console.log(error.message);
+    }
 }
 
 const deleteOffer = async (req, res) => {
@@ -394,11 +431,15 @@ const deleteOffer = async (req, res) => {
   };
 
 const adminLogout = async(req,res)=>{
+    try{
     adminSession = req.session
     adminSession.userId = false
     isAdminLoggedin = false
     console.log('Admin logged out');
     res.redirect('/admin')
+    } catch (error) {
+      console.log(error.message);
+    }
 }
 
 // Sales report............................
