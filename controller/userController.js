@@ -368,7 +368,6 @@ const viewOrder = async(req,res)=>{
             const orderData = await Orders.findById({_id:id})
             const userData =await User.findById({ _id:req.session.userId })
             await orderData.populate('products.item.productId')
-            // console.log(orderData.products.item);
             res.render("viewOrder",{order:orderData,user:userData})
         }else{
             res.redirect('/login')

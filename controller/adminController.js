@@ -369,6 +369,22 @@ const viewOrder = async(req,res)=>{
     }
 }
 
+const viewDetailedOrder = async(req,res)=>{
+    try {
+        if(req.session.userId){
+            const id = req.query.id
+            const orderData = await Order.findById({_id:id})
+            const userData =await User.findById({ _id:orderData.userId })
+            await orderData.populate('products.item.productId')
+            res.render("viewOrder",{order:orderData,user:userData})
+        }else{
+            res.redirect('/admin/login')
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 const adminCancelOrder = async(req,res)=>{
     try{
     const id = req.query.id
@@ -523,6 +539,7 @@ module.exports = {
     adminLogout,
     loadAdminProfile,
     viewOrder,
+    viewDetailedOrder,
     adminCancelOrder,
     adminConfirmorder,
     adminDeliveredorder,

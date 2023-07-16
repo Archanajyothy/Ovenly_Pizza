@@ -43,6 +43,8 @@ adminRoute.get('/delete-category',adminMiddleware.isLogin,adminController.delete
 
 adminRoute.get('/adminUsers',adminMiddleware.isLogin,adminController.viewUser)
 adminRoute.get('/adminOrder',adminMiddleware.isLogin,adminController.viewOrder)
+adminRoute.get('/adminDetailedOrder',adminMiddleware.isLogin,adminController.viewDetailedOrder)
+
 
 adminRoute.get('/login',adminMiddleware.isLogout,adminController.loadLogin)
 adminRoute.post('/login',adminController.verifyLogin)

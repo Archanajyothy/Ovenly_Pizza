@@ -245,7 +245,7 @@
                                                     <tr>
                                                         <th scope="col">SI NO</th>
                                                         <th scope="col">Order Id</th>
-                                                        <th scope="col">User Id</th>
+                                                        <th scope="col">Address</th>
                                                         <th scope="col">Time</th>
                                                         <th scope="col">Mode</th>
                                                         <th scope="col">Total Price</th>
@@ -264,7 +264,7 @@
                                                                     <%= order[i-1]._id %>
                                                                 </td>
                                                                 <td>
-                                                                    <%= order[i-1].userId %>
+                                                                    <%= order[i-1].address+", "+order[i-1].city+", "+order[i-1].state+", "+order[i-1].country+", "+order[i-1].zip %>
                                                                 </td>
                                                                 <td>
                                                                     <%= order[i-1].createdAt.toDateString() %>
@@ -283,6 +283,8 @@
                                                                         class="btn btn-danger mb-1">Cancel Order</a>
                                                                     <a href="/admin/admin-confirm-order?id=<%= order[i-1]._id %>"
                                                                         class="btn btn-success ">Confirm Order</a>
+                                                                    <a href="/admin/adminDetailedOrder?id=<%= order[i-1]._id %>"
+                                                                        class="btn btn-info " style="margin-top: 5px;padding-right: 34px;">Order Details</a>
                                                                 </td>
                                                             </tr>
                                                             <% }}else{ %>
