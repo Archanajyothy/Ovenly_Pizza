@@ -403,7 +403,7 @@ const returnProduct = async(req,res)=>{
                         // console.log('Not at position: ',i);
                     }
                 }
-                res.redirect('/dashboard')
+                res.redirect('/trasactions')
             }
         }else{
             res.redirect('/login')

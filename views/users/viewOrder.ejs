@@ -33,7 +33,7 @@
                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                       <p class="text-muted mb-0 small">₹ <%= order.products.item[i].productId.price %></p>
                     </div>
-                    <% if(order.status == 'Comfirmed'){ %>
+                    <% if(order.status == 'Delivered'){ %>
                       <% if(order.productReturned[i] == 0){ %>
                     <div class="text-center d-flex" style="margin-left: 35vw;">
                       <a href="/return-product?id=<%= order.products.item[i].productId._id%>" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Return Product</a>

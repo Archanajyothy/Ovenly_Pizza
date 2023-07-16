@@ -62,7 +62,6 @@
                                     <tbody>
                                         <% if( products.length> 0){ %>
                                             <% for(let i=1;i <=products.length; i++){ %>
-                                                <% if(products[i-1].isAvailable ==1){ %>
                                                 <tr>
                                                     <th scope="row">
                                                         <%= i %>
@@ -98,10 +97,16 @@
                                                     <td>
                                                         <a class="text-success" href="/admin/edit-product?id=<%= products[i-1]._id %>"><i
                                                                 style="color: green;"
-                                                                class="m-r-5 mdi mdi-border-color"></i>Edit</a><br>                                                   
-                                                        <a class="text-danger" href="/admin/delete-product?id=<%= products[i-1]._id %>"><i
+                                                                class="m-r-5 mdi mdi-border-color"></i>Edit</a><br>
+                                                    <% if(products[i-1].isAvailable == 0) { %>
+                                                                <a class="text-info" href="/admin/list-product?id=<%= products[i-1]._id %>"><i
+                                                            style="color: blue;"
+                                                            class="m-r-5 mdi mdi-border-color"></i>List</a><br>
+                                                    <% } else { %>                                                   
+                                                        <a class="text-danger" href="/admin/unlist-product?id=<%= products[i-1]._id %>"><i
                                                                 style="color: #ff0000;"
-                                                                class="m-r-5 mdi mdi-border-color"></i>Delete</a><br>
+                                                                class="m-r-5 mdi mdi-border-color"></i>Unlist</a><br>
+                                                    <% } %>  
                                                     </td>
                                                 
                                                 <!-- model bootstrap -->
@@ -129,7 +134,6 @@
                                                     </div>
                                                 </div>
                                             </tr>
-                                            <% } %>
                                                 <% }} else { %>
                                                     <tr>
                                                         <td colspan="5">Products Not Found</td>

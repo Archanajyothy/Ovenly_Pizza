@@ -44,6 +44,8 @@
                                     Orders</a>
                                 <a href="/admin/adminOrder?id=DELIVERED" class="btn btn-danger text-white">Delivered
                                     Orders</a>
+                                <a href="/admin/adminOrder?id=CANCELLED" class="btn btn-danger text-white">Cancelled
+                                    Orders</a>
                                 <a href="/admin/adminOrder?id=RETURNED" class="btn btn-danger text-white">Returned
                                     Orders</a>
 
@@ -133,7 +135,6 @@
                                                     <th scope="col">Mode</th>
                                                     <th scope="col">Total Price</th>
                                                     <th scope="col">Status</th>
-                                                    <th scope="col">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -164,10 +165,6 @@
                                                             <td>
                                                                 <%= order[i-1].status %>
                                                             </td>
-                                                            <td>
-                                                                <a href="/admin/admin-cancel-order?id=<%= order[i-1]._id %>"
-                                                                    class="btn btn-danger mb-1">Cancel Order</a>
-                                                            </td>
                                                         </tr>
                                                         <% }}}else{ %>
                                                             <tr>
@@ -177,6 +174,59 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <% }else if(id=='CANCELLED' ){ %>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped "
+                                                style="table-layout: fixed;">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">SI NO</th>
+                                                        <th scope="col">Order Id</th>
+                                                        <th scope="col">User Id</th>
+                                                        <th scope="col">Time</th>
+                                                        <th scope="col">Mode</th>
+                                                        <th scope="col">Total Price</th>
+                                                        <th scope="col">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% if( order.length> 0){ %>
+                                                        <% var cc = 0 %>
+                                                        <% for(let i=1;i <=order.length; i++){ %>
+                                                            <% if(order[i-1].status =="Cancelled"){ %>
+                                                                <% var cc = cc+ 1 %>
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    <%= cc %>
+                                                                </th>
+                                                                <td>
+                                                                    <%= order[i-1]._id %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= order[i-1].userId %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= order[i-1].createdAt.toDateString() %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= order[i-1].payment %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= order[i-1].products.totalPrice %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= order[i-1].status %>
+                                                                </td>
+                                                            </tr>
+                                                            <% }}}else{ %>
+                                                                <tr>
+                                                                    <td colspan="5">Orders Not Found</td>
+                                                                </tr>
+                                                                <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                 <% }else if(id=='RETURNED' ){ %>
 
                                     <div class="table-responsive">
@@ -279,10 +329,12 @@
                                                                     <%= order[i-1].status %>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="/admin/admin-cancel-order?id=<%= order[i-1]._id %>"
-                                                                        class="btn btn-danger mb-1">Cancel Order</a>
-                                                                    <a href="/admin/admin-confirm-order?id=<%= order[i-1]._id %>"
-                                                                        class="btn btn-success ">Confirm Order</a>
+                                                                    <% if(order[i-1].status != "Delivered") { %>
+                                                                        <a href="/admin/admin-cancel-order?id=<%= order[i-1]._id %>"
+                                                                            class="btn btn-danger mb-1">Cancel Order</a>
+                                                                        <a href="/admin/admin-confirm-order?id=<%= order[i-1]._id %>"
+                                                                            class="btn btn-success ">Confirm Order</a>
+                                                                    <% } %>
                                                                     <a href="/admin/adminDetailedOrder?id=<%= order[i-1]._id %>"
                                                                         class="btn btn-info " style="margin-top: 5px;padding-right: 34px;">Order Details</a>
                                                                 </td>

@@ -59,7 +59,8 @@ adminRoute.get('/view-user',adminController.viewUser)
 
 adminRoute.get('/edit-product',adminMiddleware.isLogin,adminController.editProduct)
 adminRoute.post('/edit-product',adminController.upload,adminController.updateEditProduct)
-adminRoute.get('/delete-product',adminMiddleware.isLogin,adminController.deleteProduct)
+adminRoute.get('/unlist-product',adminMiddleware.isLogin,adminController.unlistProduct)
+adminRoute.get('/list-product',adminMiddleware.isLogin,adminController.listProduct)
 
 adminRoute.get('/block-user',adminMiddleware.isLogin,adminController.blockUser)
 

@@ -56,7 +56,11 @@
                                 <td><%= key.createdAt.toDateString() %></td>
                                 <td><%= key.payment %></td>
                                 <td><%= key.status %></td>
-                                <td><a href="/cancel-order?id=<%= key._id %>" class="btn btn-primary ms-2 ">Cancel Order</a></td>
+                                <% if(key.status != "Delivered" && key.status !== "Cancelled") { %>
+                                  <td><a href="/cancel-order?id=<%= key._id %>" class="btn btn-primary ms-2 ">Cancel Order</a></td>
+                                <% } else {%>
+                                  <td> </td>
+                                <% } %>
                                 <td><a href="/view-order?id=<%= key._id %>" class="btn btn-primary ms-2 ">View Details</a></td>
                               </tr>
                             </tbody>

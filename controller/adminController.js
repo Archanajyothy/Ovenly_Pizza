@@ -274,7 +274,19 @@ const updateEditProduct = async(req,res)=>{
     }
 }
 
-const deleteProduct = async(req,res)=>{
+const listProduct = async(req,res)=>{
+    try {
+        
+        const id = req.query.id
+        const productData = await Product.updateOne({ _id:id },{$set:{isAvailable:1}})
+        res.redirect('/admin/view-product')
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const unlistProduct = async(req,res)=>{
     try {
         
         const id = req.query.id
@@ -388,7 +400,7 @@ const viewDetailedOrder = async(req,res)=>{
 const adminCancelOrder = async(req,res)=>{
     try{
     const id = req.query.id
-    await Order.deleteOne({ _id:id })
+    await Order.updateOne({_id:id},{$set:{'status':'Cancelled'}})
     res.redirect('/admin/adminOrder')
     } catch (error) {
       console.log(error.message);
@@ -533,7 +545,8 @@ module.exports = {
     viewCategory,
     addCategory,
     deleteCategory,
-    deleteProduct,
+    listProduct,
+    unlistProduct,
     upload,
     blockUser,
     adminLogout,
