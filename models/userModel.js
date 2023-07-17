@@ -68,14 +68,22 @@ userSchema.methods.addToCart = function (product) {
     const isExisting = cart.item.findIndex(objInItems => {
         return new String(objInItems.productId).trim() == new String(product._id).trim()
     })
-    if(isExisting >=0){
-        cart.item[isExisting].qty +=1
-    }else{
-        cart.item.push({productId:product._id,
-        qty:1,price:product.price})
+    var pp_price = 0
+    if (product.stock > 0) {
+        if(isExisting >=0){
+                if((cart.item[isExisting].qty+1) <= product.stock)
+                {
+                    cart.item[isExisting].qty +=1
+                    var pp_price = product.price
+                }
+            }else{
+                cart.item.push({productId:product._id,
+                qty:1,price:product.price})
+                var pp_price = product.price
+            }
+        cart.totalPrice += pp_price
+        console.log("User in schema:",this);
     }
-    cart.totalPrice += product.price
-    console.log("User in schema:",this);
     return this.save()
 }
 userSchema.methods.removefromCart =async function (productId){

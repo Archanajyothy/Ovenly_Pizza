@@ -94,12 +94,16 @@
                     <div class="nk-product-price">₹ <%= key.price %></div>
                     <div class="nk-gap-1"></div>
                     <% if(id) { %>
-                    <a href="/add-to-cart?id=<%= key._id %>" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add to Cart</a>
-                    <form action="/add-to-wishlist?id=<%= key._id %>" method="post" class="d-inline">
-                        <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">
-                            <a class="fa fa-heart"></a>
-                        </button>
-                    </form>
+                        <% if(key.stock > 0) { %>
+                            <a href="/add-to-cart?id=<%= key._id %>" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add to Cart</a>
+                            <form action="/add-to-wishlist?id=<%= key._id %>" method="post" class="d-inline">
+                                <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">
+                                    <a class="fa fa-heart"></a>
+                                </button>
+                            </form>
+                        <% } else { %>
+                            <h5><span style= "color: red;"> <s> Out of stock </s> </span></h5>
+                        <% } %>
                     <% } %>    
                 </div>
             </div>

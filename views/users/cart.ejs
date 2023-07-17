@@ -42,54 +42,99 @@
             <table class="table nk-store-cart-products">
                 <tbody>
                     <% if(id) { %>
-                    <% for(let key of cartProducts.item){ %>
-                        <tr>
-                            
+                        <% var ind = 0 %>
+                        <% var subTotalPrice %>
+                        <% for(let key of cartProducts.item) { %>
+                            <% if(cartItemStockList[ind]!=0 && key.qty <= cartItemStockList[ind]) { %>
+                                <tr>                            
+                                    <td class="nk-product-cart-thumb">
+                                        <a href="/view-product?id=<%= key.productId._id %>" class="nk-image-box-1 nk-post-image">
+                                            <img src="./assets/uploads/<%= key.productId.image[0] %>" alt="However, I have reason" width="115">
+                                        </a>
+                                    </td>
+                                    <td class="nk-product-cart-title">
+                                        <h5 class="h6">Product:</h5>
+                                        <div class="nk-gap-1"></div>
 
-                            <td class="nk-product-cart-thumb">
-                                <a href="/view-product?id=<%= key.productId._id %>" class="nk-image-box-1 nk-post-image">
-                                    <img src="./assets/uploads/<%= key.productId.image[0] %>" alt="However, I have reason" width="115">
-                                </a>
-                            </td>
-                            <td class="nk-product-cart-title">
-                                <h5 class="h6">Product:</h5>
-                                <div class="nk-gap-1"></div>
+                                        <h2 class="nk-post-title h4">
+                                            <a href="/view-product?id=<%= key.productId._id %>"><%= key.productId.name %></a>
+                                        </h2>
+                                    </td>
+                                    <td class="nk-product-cart-price">
+                                        <h5 class="h6">Price:</h5>
+                                        <div class="nk-gap-1"></div>
 
-                                <h2 class="nk-post-title h4">
-                                    <a href="/view-product?id=<%= key.productId._id %>"><%= key.productId.name %></a>
-                                </h2>
-                            </td>
-                            <td class="nk-product-cart-price">
-                                <h5 class="h6">Price:</h5>
-                                <div class="nk-gap-1"></div>
+                                        <strong>₹ <%= key.productId.price %></strong>
+                                    </td>
+                                    <td class="nk-product-cart-quantity">
+                                        <h5 class="h6">Quantity:</h5>
+                                        <div class="nk-gap-1"></div>
+                                        <form action="/edit-qty?id=<%= key._id %>" method="post">
+                                        <div class="nk-form">
+                                            <input type="number" class="form-control" name="qty" value="<%= key.qty %>" min="1" max="<%= key.productId.stock %>">
+                                            <button class="xy-1 nk-btn nk-btn-rounded nk-btn-color-black float-right" type="submit">Update Quantity</button>
+                                        </div>
+                                        </form>
+                                    </td>
+                                    <td class="nk-product-cart-total">
+                                        <h5 class="h6">Total:</h5>
+                                        <div class="nk-gap-1"></div>
 
-                                <strong>₹ <%= key.productId.price %></strong>
-                            </td>
-                            <td class="nk-product-cart-quantity">
-                                <h5 class="h6">Quantity:</h5>
-                                <div class="nk-gap-1"></div>
-                                <form action="/edit-qty?id=<%= key._id %>" method="post">
-                                <div class="nk-form">
-                                    <input type="number" class="form-control" name="qty" value="<%= key.qty %>" min="1" max="<%= key.productId.stock %>">
-                                    <button class="xy-1 nk-btn nk-btn-rounded nk-btn-color-black float-right" type="submit">Update Quatity</button>
-                                </div>
-                                </form>
-                            </td>
-                            <td class="nk-product-cart-total">
-                                <h5 class="h6">Total:</h5>
-                                <div class="nk-gap-1"></div>
+                                        <strong>₹ <%= key.qty*key.productId.price %></strong>
+                                        <% var subTotalPrice = subTotalPrice + key.qty*key.productId.price%>
+                                    </td>
+                                    <td class="nk-product-cart-remove"><a href="/delete-cart?id=<%= key.productId._id %>"><span class="ion-android-close"></span></a></td>
+                                    
+                                </tr>
+                            <% } else if(cartItemStockList[ind]!=0 && key.qty > cartItemStockList[ind]) {%>
+                                <tr>                            
+                                    <td class="nk-product-cart-thumb">
+                                        <a href="/view-product?id=<%= key.productId._id %>" class="nk-image-box-1 nk-post-image">
+                                            <img src="./assets/uploads/<%= key.productId.image[0] %>" alt="However, I have reason" width="115">
+                                        </a>
+                                    </td>
+                                    <td class="nk-product-cart-title">
+                                        <h5 class="h6">Product:</h5>
+                                        <div class="nk-gap-1"></div>
 
-                                <strong>₹ <%= key.qty*key.productId.price %></strong>
-                            </td>
-                            <td class="nk-product-cart-remove"><a href="/delete-cart?id=<%= key.productId._id %>"><span class="ion-android-close"></span></a></td>
-                            
-                        </tr>
+                                        <h2 class="nk-post-title h4">
+                                            <a href="/view-product?id=<%= key.productId._id %>"><%= key.productId.name %></a>
+                                        </h2>
+                                    </td>
+                                    <td class="nk-product-cart-price">
+                                        <h5 class="h6">Price:</h5>
+                                        <div class="nk-gap-1"></div>
+
+                                        <strong>₹ <%= key.productId.price %></strong>
+                                    </td>
+                                    <td class="nk-product-cart-quantity">
+                                        <h5 class="h6">Quantity:</h5>
+                                        <div class="nk-gap-1"></div>
+                                        <form action="/edit-qty?id=<%= key._id %>" method="post">
+                                        <div class="nk-form">
+                                            <input type="number" class="form-control" name="qty" value="<%= cartItemStockList[ind] %>" min="1" max="<%= key.productId.stock %>">
+                                            <button class="xy-1 nk-btn nk-btn-rounded nk-btn-color-black float-right" type="submit">Update Quantity</button>
+                                        </div>
+                                        </form>
+                                    </td>
+                                    <td class="nk-product-cart-total">
+                                        <h5 class="h6">Total:</h5>
+                                        <div class="nk-gap-1"></div>
+
+                                        <strong>₹ <%= cartItemStockList[ind]*key.productId.price %></strong>
+                                        <% var subTotalPrice = subTotalPrice + cartItemStockList[ind]*key.productId.price %>
+                                    </td>
+                                    <td class="nk-product-cart-remove"><a href="/delete-cart?id=<%= key.productId._id %>"><span class="ion-android-close"></span></a></td>
+                                    
+                                </tr>
+                            <% } %>
+                            <% var ind = ind+1 %>
                         <% } %>
-                        <% }else{ %>
+                    <% }else{ %>
                             <h4>Not Signed in. <br> Sign in now!!! </h4>
                             <a href="/login" class="btn btn-danger ml-2">login</a>
 
-                            <% } %>
+                    <% } %>
                 </tbody>
             </table>
             <!-- END: Products in Cart -->

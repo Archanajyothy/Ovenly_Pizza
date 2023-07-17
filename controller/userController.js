@@ -470,40 +470,59 @@ const deleteWishlist = async(req,res)=>{
 }
 
 
-const loadCart = async(req,res)=>{
+const loadCart = async (req, res) => {
     try {
-        // req.session = req.session
-        if(req.session.userId){
-            const userData =await User.findById({ _id:req.session.userId })
-            const completeUser = await userData.populate('cart.item.productId')
-            if( userData.cart.item.length == 0 ){
-                req.session.couponTotal = 0
-            }
-            if(req.session.couponTotal == 0){
-                //update coupon
-                req.session.couponTotal = userData.cart.totalPrice
-            }
-            if(req.session.coupon <= userData.cart.totalPrice){
-                req.session.couponTotal = userData.cart.totalPrice
-            }
-            // if(req.session.offer =='None'){
-            //     req.session.couponTotal = userData.cart.totalPrice
-            // }
-            console.log(req.session)
-            console.log(req.session.couponTotal);
-            res.render('cart',{isLoggedin,id:req.session.userId,cartProducts:completeUser.cart,offer:req.session.offer,couponTotal:req.session.couponTotal})
-        }else{
-            res.render('cart',{isLoggedin,id:req.session.userId,offer:req.session.offer,couponTotal:req.session.couponTotal})  
+      if (req.session.userId) {
+        const userData = await User.findById({ _id: req.session.userId });
+        const completeUser = await userData.populate('cart.item.productId');
+  
+        const cartItemStockList = [];
+        if ((completeUser.cart.item).length !== 0) {
+           for (const item of completeUser.cart.item) {
+             const cartItemProdStock = item.productId.stock
+             cartItemStockList.push(cartItemProdStock);
+           }
         }
-            } catch (error) {
-        console.log(error);
+        console.log(cartItemStockList);
+  
+        if (userData.cart.item.length === 0) {
+          req.session.couponTotal = 0;
+        }
+  
+        if (req.session.couponTotal === 0) {
+          req.session.couponTotal = userData.cart.totalPrice;
+        }
+  
+        if (req.session.couponTotal <= userData.cart.totalPrice) {
+          req.session.couponTotal = userData.cart.totalPrice;
+        }
+  
+        console.log(req.session);
+        console.log(req.session.couponTotal);
+        res.render('cart', {
+          isLoggedin,
+          id: req.session.userId,
+          cartProducts: completeUser.cart,
+          cartItemStockList: cartItemStockList,
+          offer: req.session.offer,
+          couponTotal: req.session.couponTotal,
+        });
+      } else {
+        res.render('cart', {
+          isLoggedin,
+          id: req.session.userId,
+          offer: req.session.offer,
+          couponTotal: req.session.couponTotal,
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
-}
+};  
 
 const addToCart = async(req,res,next)=>{
     try{
     const productId = req.query.id
-    // req.session = req.session
     const userData =await User.findById({_id:req.session.userId})
     const productData =await Product.findById({ _id:productId })
     const usertemp =await userData.addToCart(productData)
