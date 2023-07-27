@@ -31,7 +31,7 @@
         function downloadPdf() {
             const { jsPDF } = window.jspdf;
             var elt = document.getElementById('tb_sales_report');
-            var doc = new jsPDF()
+            var doc = new jsPDF("l")
             doc.autoTable({ html: elt })
             doc.save('SalesReport.pdf')
         }

@@ -28,12 +28,8 @@
                                                                 class="btn btn-danger mb-1">Daily</a>
                                                         </td>
                                                         <td>
-                                                            <a href="/admin/sales-report?id=weekly"
-                                                                class="btn btn-danger mb-1">Weekly</a>
-                                                        </td>
-                                                        <td>
                                                             <a href="/admin/sales-report?id=monthly"
-                                                                class="btn btn-danger mb-1">Monthy</a>
+                                                                class="btn btn-danger mb-1">Monthly</a>
                                                         </td>
                                                         <td>
                                                             <a href="/admin/sales-report?id=yearly"
@@ -53,39 +49,52 @@
                                     <thead>
                                         <tr class="bg-light">
                                             <th class="border-top-0">Sl No:</th>
-                                            <% for (var i = 0; i <= head.length;  i++ ) { %>
-                                                <th class="border-top-0"><%= head[i] %></th>
-                                            <% }; %>
+                                            <th class="border-top-0">Customer Name:</th>
+                                            <th class="border-top-0">Order Id</th>
+                                            <th class="border-top-0">Products</th>
+                                            <th class="border-top-0">Address</th>
+                                            <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Order Date</th>
+                                            <th class="border-top-0">Payment Mode</th>
+                                            <th class="border-top-0">Amount</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% var cc = 0 %>
-                                        <% for (let row of report) { %>
+                                        <% for (let row of data.orderdata) { %>
                                             <tr>
                                                 <td><%= cc=cc+1 %></td>
-                                                <% for (var i = 0; i < Object.keys(row._id).length;  i++ ) { %>
-                                                    <% if(flag == "dly") { %>
-                                                        <td><%= Object.values(row._id)[i] %></td>
-                                                    <% }else if(flag == "mon") { %>
-                                                        <td><%= Object.values(row._id)[i] %></td>
-                                                    <% }else if(flag == "wek") { %>
-                                                        <td><%= Object.values(row._id)[i] %></td>
-                                                    <% } %>
-                                                <% } %>
-                                                <% if(flag == "yrl") { %>
-                                                    <td><%= row._id %></td>
-                                                <% } %>
-                                              <td><%= row.totalOrders %></td>
-                                              <td><%= row.totalSales %></td>
+                                                <td><%= row.username %></td>
+                                                <td><%= row.orderId %></td>
+                                                <td><%= row.products %></td>
+                                                <td><%= row.address %></td>
+                                                <td><%= row.email %></td>
+                                                <td><%= row.orderDate %></td>
+                                                <td><%= row.paymentMode %></td>
+                                                <td><%= row.amount %></td>
                                             </tr>
                                           <% } %>
+                                          <tr> </tr>
+                                          <tr> </tr>
+
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><b> Total Orders :  <%= data.totalOrders %> </b></td>
+                                            <td><b> Total Sales :  ₹<%= data.totalSale %> </b></td>
+                                          </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- <div style="display: flex; flex-direction: row-reverse;">
+                            <div style="display: flex; flex-direction: row-reverse;">
                                 <button class="btn btn-success" style="color: white; margin-right: 40px; margin-bottom: 20px;" onclick= "downloadExcel('xlsx')" >Download(Excel)</button>
                                 <button class="btn btn-success" style="color: white; margin-right: 40px; margin-bottom: 20px;" onclick= "downloadPdf()" >Download(PDF)</button>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div> 
@@ -97,16 +106,7 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
                 <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
                 <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
-                <script>
-                    $(document).ready(function() {
-                    $('#tb_sales_report').DataTable( {
-                        dom: 'Bfrtip',
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ]
-                      } );
-                      } )
-                    </script>
+
                 <!-- ============================================================== -->
                 <!-- Table -->
                 <!-- ============================================================== -->

@@ -58,6 +58,10 @@
                                         </div>
                                     </div>
                                 </form>
+                                <% if(typeof errormessage !== 'undefined'){ %>
+                                    <h6 style="color:red">
+                                    <%= errormessage %></h6>
+                               <% } %>
                             </div>
                         </div>
                     </div>

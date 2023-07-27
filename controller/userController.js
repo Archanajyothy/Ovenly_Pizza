@@ -354,7 +354,7 @@ const cancelOrder = async(req,res)=>{
     try{
     const id = req.query.id
     console.log(id);
-    await Orders.deleteOne({ _id:id })
+    await Orders.updateOne({ _id:id })
     res.redirect('/dashboard')
     } catch (error) {
         console.log(error.message);

@@ -72,10 +72,6 @@ const loadAdminHome = async(req,res)=>{
                    orderGenreCount[isExisting]++
             }}
 
-            // console.log('categoryArray:',categoryArray);
-            // console.log('orderGenreCount:',orderGenreCount);
-            // console.log('genre: ',completeorder[0].products.item[0].productId.genre);
-
             const productData = await Product.find()
             const userData = await User.find()
             const userCount = userData.reduce((acc,curr)=>{
@@ -483,45 +479,163 @@ const getSalesReport = async (req, res) => {
         let head;
         
         switch (timeUnit) {
-          case 'daily':
-            timeInterval = { day: { $dayOfMonth: "$createdAt" }, 
-            month: { $month: "$createdAt" },
-            year: { $year: "$createdAt" }}
-            flag = "dly"
-            head = ["Day","Month","Year","Total Orders","Total Sales"]
-            break;
+            case 'daily':
+              var today = new Date();
+              var startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+              var endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+          
+              Order.find({
+                createdAt: { $gte: startOfDay, $lt: endOfDay }
+              })
+              .populate('userId', 'name email')
+              .populate('products.item.productId', 'name')
+              .select('_id address city state country zip payment createdAt products.totalPrice')
+              .sort({createdAt: -1})
+              .exec((err, orders) => {
+                if (err) {
+                  console.error(err);
+                  return;
+                }
+          
+                const totalOrders = orders.length;
+                let totalSale = 0;
+          
+                const orderdata = []
+                orders.forEach(order => {
+                  totalSale += order.products.totalPrice;
+          
+                  // Extract relevant data for each order
+                  const orderId = order._id;
+                  const username = order.userId.name;
+                  const products = order.products.item.map(item => item.productId.name).join(', ');
+                  const email = order.userId.email;
+                  const address = order.address+" , "+order.city+" , "+order.state+" , "+order.country+" , "+order.zip;
+                  const amount = order.products.totalPrice;
+                  const paymentMode = order.payment;
+                  const orderDate = new Date(order.createdAt).toLocaleString();
+          
+                  const odata = { "orderId": orderId, "username":username, "products":products, "email":email, "address":address, "amount":amount, "paymentMode":paymentMode, "orderDate":orderDate }
+          
+                  orderdata.push(odata)
+                });
+          
+                // Pass data to ejs template
+                const data = {
+                  orderdata: orderdata,
+                  totalOrders: totalOrders,
+                  totalSale: totalSale.toFixed(2)
+                };
+                
+                res.render('sales-report', {data:data});
+              });
+              break;
           case 'monthly':
-            timeInterval = { month: { $month: "$createdAt" },year: { $year: "$createdAt" } };
-            flag = "mon"
-            head = ["Month","Year","Total Orders","Total Sales"]
-            break;
-          case 'weekly':
-            timeInterval = { week: { $week: "$createdAt" },year: { $year: "$createdAt" } };
-            flag = "wek"
-            head = ["Week","Year","Total Orders","Total Sales"]
+            var today = new Date();
+            var startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            var endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+        
+            Order.find({
+              createdAt: { $gte: startOfMonth, $lt: endOfDay }
+            })
+            .populate('userId', 'name email')
+            .populate('products.item.productId', 'name')
+            .select('_id address city state country zip payment createdAt products.totalPrice')
+            .sort({createdAt: -1})
+            .exec((err, orders) => {
+              if (err) {
+                console.error(err);
+                return;
+              }
+        
+              const totalOrders = orders.length;
+              let totalSale = 0;
+        
+              const orderdata = []
+              orders.forEach(order => {
+                totalSale += order.products.totalPrice;
+        
+                // Extract relevant data for each order
+                const orderId = order._id;
+                const username = order.userId.name;
+                const products = order.products.item.map(item => item.productId.name).join(', ');
+                const email = order.userId.email;
+                const address = order.address+" , "+order.city+" , "+order.state+" , "+order.country+" , "+order.zip;
+                const amount = order.products.totalPrice;
+                const paymentMode = order.payment;
+                const orderDate = new Date(order.createdAt).toLocaleString();
+        
+                const odata = { "orderId": orderId, "username":username, "products":products, "email":email, "address":address, "amount":amount, "paymentMode":paymentMode, "orderDate":orderDate }
+        
+                orderdata.push(odata)
+              });
+        
+              // Pass data to ejs template
+              const data = {
+                orderdata: orderdata,
+                totalOrders: totalOrders,
+                totalSale: totalSale.toFixed(2)
+              };
+              
+              console.log(data)
+              res.render('sales-report', {data:data});
+            });
             break;
           case 'yearly':
-            timeInterval = { $year: "$createdAt" };
-            flag = "yrl"
-            head = ["Year","Total Orders","Total Sales"]
+            var today = new Date();
+            var startOfYear = new Date(today.getFullYear(), 0, 1);
+            var endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+        
+            Order.find({
+                createdAt: { $gte: startOfYear, $lt: endOfDay }
+            })
+            .populate('userId', 'name email')
+            .populate('products.item.productId', 'name')
+            .select('_id address city state country zip payment createdAt products.totalPrice')
+            .sort({createdAt: -1})
+            .exec((err, orders) => {
+                if (err) {
+                console.error(err);
+                return;
+                }
+        
+                const totalOrders = orders.length;
+                let totalSale = 0;
+        
+                const orderdata = []
+                orders.forEach(order => {
+                totalSale += order.products.totalPrice;
+        
+                // Extract relevant data for each order
+                const orderId = order._id;
+                const username = order.userId.name;
+                const products = order.products.item.map(item => item.productId.name).join(', ');
+                const email = order.userId.email;
+                const address = order.address+" , "+order.city+" , "+order.state+" , "+order.country+" , "+order.zip;
+                const amount = order.products.totalPrice;
+                const paymentMode = order.payment;
+                const orderDate = new Date(order.createdAt).toLocaleString();
+        
+                const odata = { "orderId": orderId, "username":username, "products":products, "email":email, "address":address, "amount":amount, "paymentMode":paymentMode, "orderDate":orderDate }
+        
+                orderdata.push(odata)
+                });
+        
+                // Pass data to ejs template
+                const data = {
+                orderdata: orderdata,
+                totalOrders: totalOrders,
+                totalSale: totalSale.toFixed(2)
+                };
+                
+                console.log(data)
+                res.render('sales-report', {data:data});
+            });
             break;
+            
           default:
             return res.status(400).send({ error: 'Invalid time unit' });
         }
       
-        const report = await Order.aggregate([
-          {
-            $group: {
-              _id: timeInterval,
-              totalOrders: { $sum: 1 },
-              totalSales: { $sum: "$products.totalPrice" }
-            }
-          }
-        ]);
-
-        console.log(Object.values(report))
-
-        res.render('sales-report',{report:report,flag:flag,head:head});
     } catch (error) {
         console.log(error.message);
     }
