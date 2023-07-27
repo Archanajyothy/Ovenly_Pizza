@@ -154,54 +154,36 @@ const loadCatalog =async(req,res)=>{
 
     let page = 1
     if (req.query.page) {
-        page = req.query.page
+        page = parseInt(req.query.page)
     }
     const limit = 6
     let productData
     let count
     const categoryData = await Category.find()
     if(search){
-         productData = await Product.find({
-            $or:[
-                {name:{ $regex:'.*'+search+'.*',$options:'i' }}
-            ]
-        })
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
-        .exec()
-    
-        count = await Product.find({
-            $or:[
-                {name:{ $regex:'.*'+search+'.*',$options:'i' }}
-            ]
-        }).countDocuments()
-    }else if(category){
-        productData = await Product.find({
-            $or:[
-                //{genre:{ $regex:'.*'+category+'.*',$options:'i' }}
-                {genre:category}
-            ]
-        })
-        .limit(limit * 1)
-        .skip((page - 1) * limit)
-        .exec()
-    
-        count = await Product.find({
-            $or:[
-                {name:{ $regex:'.*'+category+'.*',$options:'i' }}
-            ]
-        }).countDocuments()
-    }else{
-        productData = await Product.find().sort({name:1})
-        count = await Product.find().countDocuments()
-    }
+        const regex = new RegExp(search, 'i');
+        const query = { name: regex };
+        count = await Product.countDocuments(query);
+        productData = await Product.find(query)
+          .limit(limit)
+          .skip((page - 1) * limit)
+          .exec();
+      } else {
+        count = await Product.countDocuments();
+        productData = await Product.find()
+          .limit(limit)
+          .skip((page - 1) * limit)
+          .exec();
+      }
+      
+      const pageCount = Math.ceil(count / limit);
 
     res.render('store-catalog',{
         isLoggedin,
         products:productData,
         category:categoryData,
         id:req.session.userId,
-        totalPages:Math.ceil(count/limit),
+        totalPages:pageCount,
         currentPage:new Number(page),
         previous:new Number(page)-1,
         next:new Number(page)+1
