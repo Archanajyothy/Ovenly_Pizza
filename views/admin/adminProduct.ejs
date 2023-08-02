@@ -63,13 +63,13 @@
                                         <% if( products.length> 0){ %>
                                             <% for(let i=1;i <=products.length; i++){ %>
                                                 <tr>
-                                                    <th scope="row">
+                                                    <th scope="row" >
                                                         <%= i %>
                                                     </th>
                                                     <td>
                                                         <%= products[i-1].name %>
                                                     </td>
-                                                    <td>
+                                                    <td style="white-space: nowrap; max-width: 50px; overflow: hidden; text-overflow: ellipsis;" title="<%= products[i-1].platform %>">
                                                         <%= products[i-1].platform %>
                                                     </td>
                                                     <td>

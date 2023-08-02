@@ -46,6 +46,24 @@
         }
     </script>
 
+    <!--drop down menu-->
+    <script>
+        function updateButtonText(event) {
+          var button = document.getElementById("dropdownMenuButton");
+          button.innerHTML = event.target.innerHTML;
+          localStorage.setItem("selectedItem", event.target.innerHTML);
+        }
+        
+        window.onload = function() {
+          var selectedItem = localStorage.getItem("selectedItem");
+          if (selectedItem) {
+            var button = document.getElementById("dropdownMenuButton");
+            button.innerHTML = selectedItem;
+            localStorage.removeItem("selectedItem");
+          }
+        };
+    </script>
+
     <!-- Datatables -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">

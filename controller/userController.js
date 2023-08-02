@@ -336,7 +336,7 @@ const cancelOrder = async(req,res)=>{
     try{
     const id = req.query.id
     console.log(id);
-    await Orders.updateOne({ _id:id })
+    await Orders.updateOne({_id:id},{$set:{'status':'Cancelled'}})
     res.redirect('/dashboard')
     } catch (error) {
         console.log(error.message);
@@ -476,7 +476,14 @@ const loadCart = async (req, res) => {
         }
   
         if (req.session.couponTotal <= userData.cart.totalPrice) {
-          req.session.couponTotal = userData.cart.totalPrice;
+            if (req.session.couponapplied == "no"){
+                req.session.couponTotal = userData.cart.totalPrice;
+            }
+            else if (req.session.couponapplied == "yes"){
+                req.session.couponTotal = req.session.couponTotal;
+                req.session.couponapplied = "no"
+            }
+          
         }
   
         console.log(req.session);
@@ -690,14 +697,16 @@ const addCoupon = async(req,res)=>{
         if(req.session.userId){
             const userData =await User.findById({ _id:req.session.userId })
             const offerData = await Offer.findOne({name:req.body.offer})
-
             if(offerData){
                 if(offerData.usedBy != req.session.userId){
                     req.session.offer.name = offerData.name
                     req.session.offer.type = offerData.type 
                     req.session.offer.discount = offerData.discount 
+                    req.session.couponapplied = "yes"
                     
-                    let updatedTotal =userData.cart.totalPrice - (userData.cart.totalPrice * req.session.offer.discount)/100
+                    let updatedTotal = userData.cart.totalPrice - (userData.cart.totalPrice * req.session.offer.discount)/100
+                    console.log("userData.cart.totalPrice : " + userData.cart.totalPrice)
+                    console.log("updatedTotal : " + updatedTotal)
                     req.session.couponTotal = updatedTotal
                     console.log(req.session)
                     res.redirect('/cart')    

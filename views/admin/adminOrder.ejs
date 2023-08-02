@@ -38,6 +38,21 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+								<div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"  data-bs-toggle="dropdown" aria-expanded="false">
+                                      Order Status
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="/admin/adminOrder?id=ALL" onclick="updateButtonText(event)" return false;>All Orders</a></li>
+                                      <li><a class="dropdown-item" href="/admin/adminOrder?id=CONFIRMED" onclick="updateButtonText(event)" return false;>Confirmed</a></li>
+                                      <li><a class="dropdown-item" href="/admin/adminOrder?id=DELIVERED" onclick="updateButtonText(event)" return false;>Delivered</a></li>
+                                      <li><a class="dropdown-item" href="/admin/adminOrder?id=CANCELLED" onclick="updateButtonText(event)" return false;>Cancelled</a></li>
+                                      <li><a class="dropdown-item" href="/admin/adminOrder?id=RETURNED" onclick="updateButtonText(event)" return false;>Returned</a></li>
+                                    </ul>
+                                  </div>
+                              </div>
+                              
+                            <!-- <div class="card-body">
                                 <h4 class="card-title">Orders List</h4>
                                 <a href="/admin/adminOrder?id=ALL" class="btn btn-danger text-white">All Orders</a>
                                 <a href="/admin/adminOrder?id=CONFIRMED" class="btn btn-danger text-white">Confirmed
@@ -49,7 +64,7 @@
                                 <a href="/admin/adminOrder?id=RETURNED" class="btn btn-danger text-white">Returned
                                     Orders</a>
 
-                            </div>
+                            </div> -->
 
                             <h1 class="ms-1 text-danger">
                                 <%= id %>
