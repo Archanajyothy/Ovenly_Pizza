@@ -33,11 +33,35 @@
                 <!-- Sales chart -->
                 <!-- ============================================================== -->
                 <div class="row">
+                    <div class="card-body row col-12">
+                        <div class="row col-4">
+                          <div class="col-4">
+                            <h5 class="card-title text-uppercase text-muted mb-0">Total Sales</h5>
+                            <span class="h2 font-weight-bold mb-0">₹<%= totalSales %></span>
+                          </div>
+                        </div>
+                        
+                        <div class="row col-4">
+                            <div class="">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Total Orders</h5>
+                              <span class="h2 font-weight-bold mb-0"><%= countOrders %></span>
+                            </div>
+                        </div>
+
+                        <div class="row col-4">
+                            <div class="">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Total Users</h5>
+                                <span class="h2 font-weight-bold mb-0"><%= userCount %></span>
+                            </div>
+                        </div>
+                    
+                </div>
+                <div class="row">
                     <div class="col-md-6">
-                        <div style="width: 500px;">
+                        <div style="width: 350px;">
                             <input type="hidden" id="category" value="<%= category %>">
                             <input type="hidden" id="count" value="<%= count %>">
-                            <h3 class="text-danger text-center">Popular Categories:</h3>
+                            <h3 class="text-danger text-center">Category Wise Sales</h3>
                             <canvas id="myChart"></canvas>
                         </div>
                         <script type="text/javascript" >
@@ -68,30 +92,48 @@
                           </script>                          
                     </div>
                     <div class="col-md-6">
-                        <div class="card-body row col-12">
-                            <div class="row col-4">
-                              <div class="col-4">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Total Sales</h5>
-                                <span class="h2 font-weight-bold mb-0">₹<%= totalSales %></span>
-                              </div>
-                            </div>
-                            
-                            <div class="row col-4">
-                                <div class="">
-                                  <h5 class="card-title text-uppercase text-muted mb-0">Total Orders</h5>
-                                  <span class="h2 font-weight-bold mb-0"><%= countOrders %></span>
-                                </div>
-                            </div>
+                    <input type="hidden" id="weeklySales" value="<%= weeklySales %>">
+                    <input type="hidden" id="wkDates" value="<%= wkDates %>">
+                    <h3 class="text-danger text-center">Weekly Sales</h3>
 
-                            <div class="row col-4">
-                                <div class="">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Total Users</h5>
-                                    <span class="h2 font-weight-bold mb-0"><%= userCount %></span>
-                                </div>
-                            </div>
-                        
+
+                    <script>
+                        var sales = document.getElementById("weeklySales")
+                        const salesArray = sales.value.split(',')
+                        var dates = document.getElementById("wkDates")
+                        const datesArray = dates.value.split(',')
+                        console.log("Sales : ",salesArray)
+                        console.log("Dates : ",datesArray)
+                    </script>  
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <canvas id="myLineChart"></canvas> <!-- Create a canvas element to hold the chart -->
+                    <script>
+                  
+                      const ctx2 = document.getElementById('myLineChart').getContext('2d'); // Get the canvas element
+                      const myChart2 = new Chart(ctx2, {
+                        type: 'line', // Set chart type to line
+                        data: {
+                          labels: datesArray, // Get an array of dates for the x-axis labels
+                          datasets: [{
+                            label: "Sales", // Set dataset label
+                            data: salesArray, // Get an array of sales values for the y-axis data
+                            //backgroundColor: 'rgba(255, 99, 132, 0.2)', // Set background color for the area below the line
+                            //borderColor: 'rgba(255, 99, 132, 1)', // Set border color for the line
+                            borderWidth: 1 // Set border width for the line
+                          }]
+                        },
+                        options: {
+                          scales: {
+                            y: {
+                              beginAtZero: true // Set y-axis to start at zero
+                            }
+                          }
+                        }
+                      });
+                    </script>         
                     </div>
                 </div>
+
 
             <!-- ============================================================== -->
             <!-- End Container fluid  -->

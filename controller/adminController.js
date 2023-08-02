@@ -77,7 +77,42 @@ const loadAdminHome = async(req,res)=>{
             const userCount = userData.reduce((acc,curr)=>{
                 return acc+1
             },0)
-            res.render('adminDashboard',{products:productData,users:userData,category:categoryArray,count:orderGenreCount,totalSales:totalSales,countOrders:countOrders,userCount:userCount})
+
+
+            const endOfWeek = new Date(); // Initialize startOfWeek to today's date
+            endOfWeek.setHours(23, 59, 59, 999); // Set the time to midnight
+            
+            const startOfWeek = new Date(endOfWeek); // Initialize endOfWeek to the same date as startOfWeek
+            startOfWeek.setDate(endOfWeek.getDate() - 7); // Add 7 days to get the end of the week
+            startOfWeek.setHours(0, 0, 0, 0); // Set the time to 1 millisecond before midnight
+            
+            const result = await Order.aggregate([
+                {
+                $match: {
+                    createdAt: { $gte: startOfWeek, $lte: endOfWeek } // Match orders created between startOfWeek and endOfWeek
+                }
+                },
+                {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, // Group orders by date string in format "YYYY-MM-DD"
+                    sales: { $sum: "$products.totalPrice" } // Sum the total sales for each day
+                }
+                },
+                {
+                $sort: { _id: 1 } // Sort the results by date in ascending order
+                }
+            ]);
+            
+            const wkDates = []
+            const weeklySales = []
+            for(item of result){
+                wkDates.push(item._id)
+                weeklySales.push(parseInt(item.sales))
+            }
+
+            console.log(typeof weeklySales)
+            console.log(typeof wkDates)
+            res.render('adminDashboard',{products:productData,users:userData,category:categoryArray,count:orderGenreCount,totalSales:totalSales,countOrders:countOrders,userCount:userCount,weeklySales:weeklySales,wkDates:wkDates})
         }
         else{
             res.redirect('/admin/login')
