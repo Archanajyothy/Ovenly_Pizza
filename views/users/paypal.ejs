@@ -11,7 +11,6 @@
                                         class="text-main-1">Paypal Process</span> To Payment</p>
 
                                 <div class="d-flex flex-row align-items-center mb-4 text-center">
-                                    <!-- <i class="fas fa-envelope fa-lg fa-fw text-center"></i> -->
                                     <div class="form-outline flex-fill mb-0">
                                         <label class="text-center form-label" for="form3Example3c">Click Below to
                                             Pay <br>Total : $<%= total %></label>
@@ -25,7 +24,6 @@
 
 
                                             <div id="paypal-button-container"></div>
-                                            <!-- Sample PayPal credentials (client-id) are included -->
                                             <script
                                                 src="https://www.paypal.com/sdk/js?client-id=AZaLOY_U4gBBsRUIj2UjY-phaARVQyP9psEO5LWjfqdcskfrGwxutRNXT2HFhrfMtyl85iwrh98rgtM3&currency=USD&intent=capture&enable-funding=venmo"
                                                 data-sdk-integration-source="integrationbuilder"></script>
@@ -34,8 +32,6 @@
                                                 console.log('type:',typeof(total.value),' value:',total.value);
                                                 
                                                 const paypalButtonsComponent = paypal.Buttons({
-                                                    // optional styling for buttons
-                                                    // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
                                                     style: {
                                                         color: "gold",
                                                         shape: "rect",

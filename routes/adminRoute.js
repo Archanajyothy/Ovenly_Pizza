@@ -84,7 +84,7 @@ adminRoute.use((req, res, next) => {
 
 adminRoute.get('*',(req,res)=>{
     res.redirect('/admin')
-})
+}) 
 
 
 module.exports = adminRoute

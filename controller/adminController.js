@@ -41,7 +41,6 @@ let upload = multer({
 const loadAdminHome = async(req,res)=>{
     try {
         adminSession = req.session
-        // const userData = await User.findById({_id:adminSession.userId})
         if(isAdminLoggedin){
             const categoryData = await Category.find()
             const categoryArray = []
@@ -212,7 +211,6 @@ const updateAddProduct = async(req,res)=>{
         console.log(req.body.genre);
         product.genre = req.body.genre
         console.log(product)
-    //  await product.updateOne({name:req.body.name},{$push:{genre:{genreName:req.body.genre}}})
         const productData = await product.save()
         if(productData){
             res.render('add-product',{message:"Product added sucessfully.",category:categoryData})
@@ -357,7 +355,7 @@ const addCategory = async(req,res)=>{
         if(existingCategory.length === 0)
         {
             const category = Category({
-                name: uniqueCategory //req.body.category
+                name: uniqueCategory 
             })
             const categoryData = await category.save()
             res.redirect('/admin/adminCategory')
@@ -367,7 +365,6 @@ const addCategory = async(req,res)=>{
         res.render('adminCategory',{category:categoryData,errormessage:"Category already exist. Please enter a new category."})
         }
     } catch (error) {
-        //console.log(error.message);
         console.error(`Failed to add category: ${error.message}`)
     } 
 }

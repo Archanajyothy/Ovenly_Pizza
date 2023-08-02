@@ -2,9 +2,6 @@
 <%- include("../partials/adminSidebar") -%>
 
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
                     <div class="col-5">
@@ -22,16 +19,9 @@
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
             <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
                 <!-- Sales chart -->
-                <!-- ============================================================== -->
                 <div class="row">
                     <div class="card-body row col-12">
                         <div class="row col-4">
@@ -66,15 +56,9 @@
                         </div>
                         <script type="text/javascript" >
                             const count = document.getElementById('count')
-                            // console.log('type:',typeof(count.value),' value:',count.value);
                             const countArray = count.value.split(',')
-                            // console.log('type:',typeof(countArray),'values,',countArray);
-
                             const category = document.getElementById('category')
-                            // console.log(' value:',category.value);
                             const categoryArray = category.value.split(',')
-                            // console.log('values,',categoryArray);
-
                             const ctx = document.getElementById('myChart');
                             
                             new Chart(ctx, {
@@ -117,8 +101,6 @@
                           datasets: [{
                             label: "Sales", // Set dataset label
                             data: salesArray, // Get an array of sales values for the y-axis data
-                            //backgroundColor: 'rgba(255, 99, 132, 0.2)', // Set background color for the area below the line
-                            //borderColor: 'rgba(255, 99, 132, 1)', // Set border color for the line
                             borderWidth: 1 // Set border width for the line
                           }]
                         },
@@ -133,31 +115,17 @@
                     </script>         
                     </div>
                 </div>
-
-
-            <!-- ============================================================== -->
             <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
             <!-- footer -->
-            <!-- ============================================================== -->
             <footer class="footer text-center">
                 All Rights Reserved.
             </footer>
-            <!-- ============================================================== -->
             <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
         <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
         <!-- End Wrapper -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
         <!-- All Jquery -->
-        <!-- ============================================================== -->
         <script src="assets/libs/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap tether Core JavaScript -->
         <script src="assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

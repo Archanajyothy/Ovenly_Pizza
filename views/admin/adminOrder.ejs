@@ -1,21 +1,7 @@
 <%- include("../partials/adminHeader") -%>
-    <!-- ============================================================== -->
-    <!-- End Topbar header -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
     <%- include("../partials/adminSidebar") -%>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
         <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
                     <div class="col-5">
@@ -24,16 +10,9 @@
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
             <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
                 <!-- Start Page Content -->
-                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -51,20 +30,6 @@
                                     </ul>
                                   </div>
                               </div>
-                              
-                            <!-- <div class="card-body">
-                                <h4 class="card-title">Orders List</h4>
-                                <a href="/admin/adminOrder?id=ALL" class="btn btn-danger text-white">All Orders</a>
-                                <a href="/admin/adminOrder?id=CONFIRMED" class="btn btn-danger text-white">Confirmed
-                                    Orders</a>
-                                <a href="/admin/adminOrder?id=DELIVERED" class="btn btn-danger text-white">Delivered
-                                    Orders</a>
-                                <a href="/admin/adminOrder?id=CANCELLED" class="btn btn-danger text-white">Cancelled
-                                    Orders</a>
-                                <a href="/admin/adminOrder?id=RETURNED" class="btn btn-danger text-white">Returned
-                                    Orders</a>
-
-                            </div> -->
 
                             <h1 class="ms-1 text-danger">
                                 <%= id %>
@@ -344,14 +309,14 @@
                                                                     <%= order[i-1].status %>
                                                                 </td>
                                                                 <td>
-                                                                    <% if(order[i-1].status != "Delivered") { %>
+                                                                    <% if(order[i-1].status != "Delivered" && order[i-1].status != "Cancelled") { %>
                                                                         <a href="/admin/admin-cancel-order?id=<%= order[i-1]._id %>"
-                                                                            class="btn btn-danger mb-1">Cancel Order</a>
+                                                                            class="btn btn-danger mb-1" style="padding-right: 20px;">Cancel Order</a>
                                                                         <a href="/admin/admin-confirm-order?id=<%= order[i-1]._id %>"
                                                                             class="btn btn-success ">Confirm Order</a>
                                                                     <% } %>
                                                                     <a href="/admin/adminDetailedOrder?id=<%= order[i-1]._id %>"
-                                                                        class="btn btn-info " style="margin-top: 5px;padding-right: 34px;">Order Details</a>
+                                                                        class="btn btn-info " style="margin-top: 5px;padding-right: 20px;">Order Details</a>
                                                                 </td>
                                                             </tr>
                                                             <% }}else{ %>
@@ -368,40 +333,17 @@
 
                         </div>
                     </div>
-
-
-                    <!-- ============================================================== -->
                     <!-- End PAge Content -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Right sidebar -->
-                    <!-- ============================================================== -->
-                    <!-- .right-sidebar -->
-                    <!-- ============================================================== -->
-                    <!-- End Right sidebar -->
-                    <!-- ============================================================== -->
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Container fluid  -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
                 <!-- footer -->
-                <!-- ============================================================== -->
                 <footer class="footer text-center">
-                    All Rights Reserved. 
+                    &#169; ArchanaJyothy All Rights Reserved. 
                 </footer>
-                <!-- ============================================================== -->
                 <!-- End footer -->
-                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Page wrapper  -->
-            <!-- ============================================================== -->
+
         </div>
-        <!-- ============================================================== -->
-        <!-- End Wrapper -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
+
         <!-- All Jquery -->
         <!-- ============================================================== -->
         <script src="assets/libs/jquery/dist/jquery.min.js"></script>

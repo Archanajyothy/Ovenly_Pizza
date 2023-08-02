@@ -22,7 +22,6 @@ app.use(cors())
 
 let isLoggedin
 isLoggedin = false
-// let req.session = false || {}
 let newUser
 let newOtp
 let offer = {
@@ -100,7 +99,6 @@ const verifyLogin = async(req,res)=>{
                     if(userData.isAdmin ===1){
                         res.render('../signin',{message:"Not user"})
                     }else{
-                        // req.session = req.session
                         req.session.userId = userData._id
                         isLoggedin = true
                         res.redirect('/')
@@ -129,8 +127,8 @@ const loadStore = async(req,res)=>{
         req.session.offer = offer
         req.session.couponTotal = couponTotal
     }
-    // console.log('req.session:',req.session);
-    const productData = await Product.find()
+    const productData = await Product.find().sort({name:1})
+    console.log(productData)
     res.render('store',{isLoggedin,products:productData,id:req.session.userId})
     } catch (error) {
         console.log(error.message);
@@ -165,12 +163,14 @@ const loadCatalog =async(req,res)=>{
         const query = { name: regex };
         count = await Product.countDocuments(query);
         productData = await Product.find(query)
+          .sort({ name: 1 })
           .limit(limit)
           .skip((page - 1) * limit)
           .exec();
       } else {
         count = await Product.countDocuments();
         productData = await Product.find()
+          .sort({ name: 1 })
           .limit(limit)
           .skip((page - 1) * limit)
           .exec();
@@ -411,9 +411,7 @@ const returnProduct = async(req,res)=>{
     try {
         if(req.session = req.session){
             const id = req.query.id
-            // console.log('id',new String(id));
             const productOrderData = await Orders.findById({_id:ObjectID(req.session.currentOrder)})
-            // console.log('productOrderData.products.item[i].productId',new String(productOrderData.products.item[0].productId));
             const productData = await Product.findById({_id:id})
             if(productOrderData){
                 for(let i=0;i<productOrderData.products.item.length;i++){
@@ -431,7 +429,6 @@ const returnProduct = async(req,res)=>{
                         })
                         
                     }else{
-                        // console.log('Not at position: ',i);
                     }
                 }
                 res.redirect('/trasactions')
@@ -476,10 +473,9 @@ const addCartdelWishlist = async(req,res)=>{
     try{
     const productId = req.query.id
     console.log(productId);
-    // req.session = req.session
-    const userData =await User.findById({_id:req.session.userId})
-    const productData =await Product.findById({ _id:productId })
-    const add = userData.addToCart(productData)
+    const userData = await User.findById({_id:req.session.userId})
+    const productData = await Product.findById({ _id:productId })
+    const add = await userData.addToCart(productData)
     if(add){
         userData.removefromWishlist(productId)
     }
@@ -578,11 +574,9 @@ const addToCart = async(req,res,next)=>{
 const deleteCart = async(req,res,next)=>{
     try{
     const productId = req.query.id
-    // req.session = req.session
     const userData =await User.findById({_id:req.session.userId})
     const usertemp =await userData.removefromCart(productId)
     if(usertemp){
-        // req.session.couponTotal = usertemp.cart.totalPrice
         req.session.couponTotal = usertemp.cart.totalPrice
         req.session.offer = offer
         console.log('usertemp:',usertemp);
@@ -597,7 +591,6 @@ const editQty = async(req,res)=>{
    try {
     id = req.query.id
     console.log(id,' : ',req.body.qty)
-    // req.session = req.session
     const userData =await User.findById({_id:req.session.userId})
     const foundProduct = userData.cart.item.findIndex(objInItems => objInItems._id == id)
     console.log('product found at: ',foundProduct)
@@ -625,7 +618,6 @@ const editQty = async(req,res)=>{
 
 const loadCheckout = async(req,res)=>{
     try {
-        // req.session = req.session
         if(req.session.userId){
             console.log(req.session);
             console.log(req.session.couponTotal);
@@ -636,8 +628,6 @@ const loadCheckout = async(req,res)=>{
             const completeUser = await userData.populate('cart.item.productId')
             console.log('address: ',selectAddress);
             console.log('id',id)
-            // console.log('completeUser: ',completeUser);
-            // console.log(req.session.couponTotal);
             res.render('checkout',{isLoggedin,id:req.session.userId,cartProducts:completeUser.cart,offer:req.session.offer,couponTotal:req.session.couponTotal,userAddress:addressData,addSelect: selectAddress})
         }else{
             const addressData = await Address.find({ userId: req.session.userId });
@@ -650,12 +640,9 @@ const loadCheckout = async(req,res)=>{
 
 const storeOrder = async(req,res)=>{
     try{
-        // req.session = req.session
         if(req.session.userId){
             const userData =await User.findById({ _id:req.session.userId })
             const completeUser = await userData.populate('cart.item.productId')
-            // console.log('CompleteUser: ',completeUser);
-
             userData.cart.totalPrice = req.session.couponTotal
             const updatedTotal = await userData.save()
 
@@ -675,13 +662,11 @@ const storeOrder = async(req,res)=>{
             for(let key of order.products.item){
                 orderProductStatus.push(0)
             }
-            // console.log('orderProductStatus',orderProductStatus);
             order.productReturned = orderProductStatus
 
             const orderData =  await order.save()
 
             req.session.currentOrder = orderData._id
-            // console.log('req.session.currentOrder',req.session.currentOrder);
             
             const offerUpdate =await Offer.updateOne({name:req.session.offer.name},{$push:{usedBy:req.session.userId}})
             
@@ -718,15 +703,6 @@ const loadSuccess = async(req,res)=>{
                     }
                 }
             }
-            
-            // const orderData = await Orders.find({userId:req.session.userId})
-            // for(let key of orderData.products.item){
-            //     orderProductStatus.push(0)
-            // }
-            // console.log('orderProductStatus',orderProductStatus);
-            // orderData = orderProductStatus
-            // await orderData.save()
-            
             await Orders.updateOne({userId:req.session.userId,_id:req.session.currentOrder},{$set:{'status':'Order Placed'}})
             await User.updateOne({_id:req.session.userId},{$set:{'cart.item':[],'cart.totalPrice':'0'}},{multi:true})
             console.log("Order Placed and Cart is Empty.");
@@ -788,7 +764,6 @@ const addCoupon = async(req,res)=>{
 module.exports = { 
     verifyLogin,
     loadStore,
-    // selectCategory,
     loadLogin,
     userDashboard,
     manageAddress,

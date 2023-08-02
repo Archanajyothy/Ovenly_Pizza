@@ -30,16 +30,6 @@ const securePassword = async(password)=>{
     }
 }
 
-
-// const paypal = require('paypal-rest-sdk')
-// paypal.configure({
-//     'mode': 'sandbox', //sandbox or live
-//     'client_id': 'AaSaTLn6P8dEP56FaRh-FMMZj2c2NrWwc9aqu2ravuX-Bad5uGkkJ90LAFoWTzoV2hEyaKkyWITW2RVc',
-//     'client_secret': 'EKiJRKlWpzelTn4ahxDfWGZm_jGCbVlqDkTUpcXGTKmRgfOpqFlsFnUU3A4Kv7oFPZBL8sU_E5AnFEuR'
-//   });
-
-
-
 userRoute.get('/register',userMiddleware.isLogout, userController.loadSignup)
 userRoute.post('/register', userController.storeSignup)
 
@@ -84,7 +74,6 @@ userRoute.get('/checkout',userController.loadCheckout)
 userRoute.post('/checkout',userMiddleware.isLogin,userController.storeOrder)
 userRoute.get('/order-success',userMiddleware.isLogin,userController.loadSuccess)
 
-//userRoute.post('/razorpay',userMiddleware.isLogin,userController.razorpayCheckout)
 userRoute.post('/paypal',userMiddleware.isLogin,userController.paypalCheckout)
 
 userRoute.get('/logout',userMiddleware.isLogin,userController.userLogout)
