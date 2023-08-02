@@ -55,6 +55,10 @@ userRoute.post('/login',userController.verifyLogin)
 userRoute.get('/dashboard',userMiddleware.isLogin,userController.userDashboard)
 userRoute.get('/trasactions',userMiddleware.isLogin,userController.userTrasactions)
 
+userRoute.get('/addressBook',userMiddleware.isLogin,userController.manageAddress)
+userRoute.get('/loadAddAddress',userMiddleware.isLogin,userController.loadGetAddress)
+userRoute.post('/storeAddress',userMiddleware.isLogin,userController.saveAddress)
+
 userRoute.get('/edit-user',userMiddleware.isLogin,userController.editUser)
 userRoute.post('/edit-user',userController.updateUser)
 userRoute.get('/cancel-order',userMiddleware.isLogin,userController.cancelOrder)
@@ -75,7 +79,6 @@ userRoute.get('/delete-wishlist',userController.deleteWishlist)
 userRoute.get('/add-to-cart-delete-wishlist',userController.addCartdelWishlist)
 
 userRoute.post('/add-coupon',userController.addCoupon)
-
 
 userRoute.get('/checkout',userController.loadCheckout)
 userRoute.post('/checkout',userMiddleware.isLogin,userController.storeOrder)

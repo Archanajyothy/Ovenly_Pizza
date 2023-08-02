@@ -43,15 +43,63 @@
                             <div class="nk-store nk-store-checkout">
                                 <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Billing</span>
                                         Details</span></h3>
+                                    <% if(isLoggedin) { %>
+                                        <p>
+
+                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                Shipping Address <i class="mdi mdi-chevron-down"></i>
+
+                                            </button>
+                                          </p>
+                                          <div class="collapse" id="collapseExample">
+                                            <div class="card card-body">
+                                                <%if(userAddress.length>0){
+                                                    for(let key of userAddress){%>
+                                                <div class="col-lg-6">
+                                                    <div class="card card-dashboard">
+                        
+                                                        <div class="card-body">
+                        
+                                                            <p><%= key.firstname %> <%=key.lastname%><br>
+                                                                <%= key.address %> <br>
+                                                                <%= key.city %> , <%= key.state %><br>
+                                                                <%= key.country %><br>
+                                                                <%= key.zip %><br>
+                                                                <%= key.phone %><br>
+                                                               
+                                                            <!-- <a href="#">Edit <i class="icon-edit"></i></a> -->
+                                                            <a href="/checkout?id=<%= key._id %>"><i class="mdi mdi-close-circle"></i>  Use this address</a>
+                                                        </p>
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .card-dashboard -->
+                                                </div><!-- End .col-lg-6 -->
+                                                <%}}else{%>
+                        
+                                                <div class="col-lg-6">
+                                                    <div class="card card-dashboard">
+                                                        <div class="card-body">
+                        
+                                                            <p><h4> You have not set up this type of address yet.</h4><br>
+                                                            <a href="#"><center><h1><i class="mdi mdi-plus-box"></i></h1><br><h2> Add Address</h2></center></a></p>
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .card-dashboard -->
+                                                </div><!-- End .col-lg-6 -->
+                                                <%}%>
+                                            </div>
+                                          </div>
+                                        <% } %>
 
                                 <!-- START: Billing Details -->
                                 <div class="nk-gap"></div>
                                 <form action="/checkout" method="post" class="nk-form">
+                                    <%   if(addSelect!=null){  %>
                                     <div class="row vertical-gap">
                                         <div class="col-lg-6">
-
                                             <div class="nk-gap-1"></div>
-                                            <label for="country-sel">Country <span class="text-main-1">*</span>:</label>
+                                            <label for="address">Address <span class="text-main-1">*</span>:</label>
+                                            <input type="text" class="form-control required" name="address"
+                                                id="address" value="<%= addSelect.address %>" required>
+                                            <!-- <label for="country-sel">Country <span class="text-main-1">*</span>:</label>
                                             <select name="country" class="form-control required" id="country-sel" required>
                                                 <option value="none">Select a country...</option>
                                                 <option value="India">India</option>
@@ -59,7 +107,7 @@
                                                 <option value="UK">UK</option>
                                                 <option value="KSA">KSA</option>
 
-                                            </select>
+                                            </select> -->
                                         </div>
                                         <div class="col-lg-6">
                                             
@@ -80,26 +128,29 @@
 
                                         </div>
                                         <div class="col-lg-12">
-                                            <label for="address">Address <span class="text-main-1">*</span>:</label>
-                                            <input type="text" class="form-control required" name="address"
-                                                id="address" required>
-
+                                            
                                             <div class="nk-gap-1"></div>
                                             <label for="city">Town / City <span class="text-main-1">*</span>:</label>
-                                            <input type="text" class="form-control required" name="city" id="city" required>
+                                            <input type="text" class="form-control required" name="city" id="city" value="<%= addSelect.city %>" required>
 
                                             <div class="nk-gap-1"></div>
                                             <div class="row vertical-gap">
                                                 <div class="col-sm-6">
-                                                    <label for="state">State / Country <span
+                                                    <label for="state">State <span
                                                             class="text-main-1">*</span>:</label>
                                                     <input type="text" class="form-control required" name="state"
-                                                        id="state" required>
+                                                        id="state" value="<%= addSelect.state %>" required>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="country">Country <span
+                                                            class="text-main-1">*</span>:</label>
+                                                    <input type="text" class="form-control required" name="country"
+                                                        id="country-sel" value="<%= addSelect.country %>" required>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="zip">Postcode / ZIP <span
                                                             class="text-main-1">*</span>:</label>
-                                                    <input type="tel" class="form-control required" name="zip" id="zip" required>
+                                                    <input type="tel" class="form-control required" name="zip" id="zip" value="<%= addSelect.zip %>" required>
                                                 </div>
                                             </div>
 
@@ -108,10 +159,77 @@
                                         </div>
                                     </div>
 
+                                <% } else { %>
+                                    <div class="row vertical-gap">
+                                        <div class="col-lg-6">
+                                            <div class="nk-gap-1"></div>
+                                            <label for="address">Address <span class="text-main-1">*</span>:</label>
+                                            <input type="text" class="form-control required" name="address"
+                                                id="address"  required>
+                                            <!-- <label for="country-sel">Country <span class="text-main-1">*</span>:</label>
+                                            <select name="country" class="form-control required" id="country-sel" required>
+                                                <option value="none">Select a country...</option>
+                                                <option value="India">India</option>
+                                                <option value="USA">USA</option>
+                                                <option value="UK">UK</option>
+                                                <option value="KSA">KSA</option>
 
+                                            </select> -->
+                                        </div>
+                                        <div class="col-lg-6">
+                                            
+                                            <div class="nk-gap-2"></div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="Cash-on-Delivery" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    Cash on Delivery
+                                                </label>
+                                              </div>
+                                              
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="payment" id="exampleRadios3" value="PayPal">
+                                                <label class="form-check-label" for="exampleRadios3">
+                                                    PayPal
+                                                </label>
+                                              </div>
+
+                                        </div>
+                                        <div class="col-lg-12">
+                                            
+                                            <div class="nk-gap-1"></div>
+                                            <label for="city">Town / City <span class="text-main-1">*</span>:</label>
+                                            <input type="text" class="form-control required" name="city" id="city"  required>
+
+                                            <div class="nk-gap-1"></div>
+                                            <div class="row vertical-gap">
+                                                <div class="col-sm-6">
+                                                    <label for="state">State <span
+                                                            class="text-main-1">*</span>:</label>
+                                                    <input type="text" class="form-control required" name="state"
+                                                        id="state"  required>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="country">Country <span
+                                                            class="text-main-1">*</span>:</label>
+                                                    <input type="text" class="form-control required" name="country"
+                                                        id="country-sel"  required>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="zip">Postcode / ZIP <span
+                                                            class="text-main-1">*</span>:</label>
+                                                    <input type="tel" class="form-control required" name="zip" id="zip"  required>
+                                                </div>
+                                            </div>
+
+                                            <div class="nk-gap-1"></div>
+
+                                        </div>
+                                    </div>
+                                <% } %>
+                        
                                     <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-main-1" href="">Place Order</button>
                                 
-
+                                
                                 </form>
                                 <!-- END: Billing Details -->
 

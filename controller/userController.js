@@ -3,7 +3,7 @@ const Product = require('../models/productModel')
 const Orders = require('../models/ordersModel')
 const Offer = require('../models/offerModel')
 const Category = require('../models/categoryModel')
-
+const Address = require('../models/addressModel')
 
 
 const bcrypt = require('bcrypt')
@@ -267,11 +267,60 @@ const userDashboard = async(req,res)=>{
     }
 }
 
+const manageAddress = async(req,res)=>{
+    try {
+        userSession = req.session;
+        const userData = await User.findById({ _id: userSession.userId });
+        const addressData = await Address.find({ userId: userSession.userId });
+        console.log(addressData);
+        res.render("address", {
+          isLoggedin,
+          user: userData,
+          userAddress: addressData,
+          id: userSession.userId,
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+}
+
+const loadGetAddress = async(req,res)=>{
+    try{
+        const userData = await User.findById({_id:req.session.userId})
+        res.render('addAddressForm',{user:userData})
+
+    }catch(error){
+        console.log(error.message)
+    }
+}
+
+const saveAddress = async (req, res) => {
+    try {
+      userSession = req.session;
+      const addressData = Address({
+        userId: userSession.userId,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        country: req.body.country,
+        address: req.body.streetAddress,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip,
+        phone: req.body.mno,
+      });
+      console.log(addressData)
+      await addressData.save();
+      res.redirect("/addressBook");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
 const userTrasactions = async(req,res)=>{
     try {
         const orderData = await Orders.find({userId:req.session.userId}).sort({createdAt:-1})
-        const userData = await User.findById({_id:req.session.userId})
-        res.render('trasactions',{user:userData,userOrders:orderData})
+            const userData = await User.findById({_id:req.session.userId})
+            res.render('trasactions',{user:userData,userOrders:orderData})
     } catch (error) {
         console.log(error.message)
     }
@@ -580,13 +629,18 @@ const loadCheckout = async(req,res)=>{
         if(req.session.userId){
             console.log(req.session);
             console.log(req.session.couponTotal);
+            const id = req.query.id;
+            const addressData = await Address.find({ userId: req.session.userId });
             const userData =await User.findById({ _id:req.session.userId })
+            const selectAddress = await Address.findOne({ _id: id });
             const completeUser = await userData.populate('cart.item.productId')
-            // console.log('UserData: ',userData);
+            console.log('address: ',selectAddress);
+            console.log('id',id)
             // console.log('completeUser: ',completeUser);
             // console.log(req.session.couponTotal);
-            res.render('checkout',{isLoggedin,id:req.session.userId,cartProducts:completeUser.cart,offer:req.session.offer,couponTotal:req.session.couponTotal})
+            res.render('checkout',{isLoggedin,id:req.session.userId,cartProducts:completeUser.cart,offer:req.session.offer,couponTotal:req.session.couponTotal,userAddress:addressData,addSelect: selectAddress})
         }else{
+            const addressData = await Address.find({ userId: req.session.userId });
             res.render('checkout',{isLoggedin,id:req.session.userId,offer:req.session.offer,couponTotal:req.session.couponTotal})
         }
     } catch (error) {
@@ -737,6 +791,9 @@ module.exports = {
     // selectCategory,
     loadLogin,
     userDashboard,
+    manageAddress,
+    loadGetAddress,
+    saveAddress,
     userTrasactions,
     loadSignup,
     storeSignup,
